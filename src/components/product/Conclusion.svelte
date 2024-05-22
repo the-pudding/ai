@@ -29,7 +29,7 @@
 <div class="emotional-journey-image">
 	<img
 		src="assets/emotional-journey-image.jpg"
-		alt="The Emotional Evolution of Popular Music"
+		alt="A winding path represents the emotional journey of popular music from the 1960s to the present. The path is divided into sections, each marked with distinctive styles and colors to indicate the predominant emotions of that era. The colors transition from bright and cheerful hues in the earlier decades to darker and more somber tones in recent years. Iconic symbols and silhouettes along the path represent significant milestones, genres, and artists. Small charts and graphs illustrate the changing proportions of emotions over time. The background complements the emotional journey with abstract shapes, textures, and patterns that evoke the mood of each era. A legend explains the significance of the colors, symbols, and charts used."
 	/>
 	<p class="image-caption">The Emotional Evolution of Popular Music</p>
 </div>
