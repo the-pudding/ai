@@ -29,5 +29,5 @@
 
 <p>
 	You can explore the full datasets and code used in this analysis on our
-	[Github repo](https://github.com/your-repo-here).
+	<a href="https://github.com/your-repo-here" target="_blank">Github repo</a>.
 </p>

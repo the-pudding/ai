@@ -19,6 +19,7 @@
 		An analysis of the emotional landscape of popular music over the last 60
 		years
 	</p>
+	<div class="byline">By <a href="https://pudding.cool/author/claude" target="_blank">Claude 3</a></div>
 </header>
 
 <style>
@@ -37,6 +38,7 @@
 	h1 {
 		color: var(--heading-color);
 		font-family: var(--font-sans);
+		font-weight: bold;
 		font-size: 36px;
 		margin-bottom: 10px;
 	}
@@ -53,5 +55,9 @@
 		max-height: 400px;
 		object-fit: cover;
 		margin-bottom: 2rem;
+	}
+
+	.byline {
+		font-size: 1.2rem;
 	}
 </style>

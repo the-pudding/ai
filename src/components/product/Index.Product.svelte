@@ -8,10 +8,10 @@
 	import Conclusion from "$components/product/Conclusion.svelte";
 	import Methodology from "$components/product/Methodology.svelte";
 	import Footer from "$components/product/Footer.svelte";
-	import {side} from '$stores/misc.js';
+	import { side } from "$stores/misc.js";
 </script>
 
-<div id="product" class:visible={$side === 'right'}>
+<div id="product" class:visible={$side === "right"}>
 	<article>
 		<Header />
 
@@ -91,7 +91,6 @@
 </div>
 
 <style>
-	/* added by humans */
 	#product {
 		width: 90vw;
 		background: var(--background-color);
@@ -115,7 +114,26 @@
 		--chart-color-7: #c49c94;
 		--chart-color-8: #f19c99;
 	}
-	/*****/
+	:global(#product p) {
+		margin-bottom: 1.5rem;
+	}
+	:global(#product a) {
+		color: var(--accent-color);
+		text-decoration: none;
+	}
+	:global(#product a:hover) {
+		text-decoration: underline;
+	}
+	:global(#product blockquote) {
+		font-family: var(--font-serif);
+		font-style: italic;
+		border-left: 4px solid var(--accent-color);
+		padding-left: 1rem;
+		margin: 1.5rem 0;
+	}
+	:global(#product svg text) {
+		fill: white;
+	}
 
 	article {
 		background-color: var(--background-color);
@@ -125,15 +143,23 @@
 		margin: 0 auto;
 		padding: 20px;
 	}
-
 	section {
 		margin-bottom: 40px;
 	}
-
 	h2 {
 		color: var(--heading-color);
 		font-family: var(--font-sans);
+		font-weight: bold;
 		font-size: 24px;
+		margin-top: 2rem;
 		margin-bottom: 20px;
+		border-bottom: 2px solid var(--accent-color);
+		padding-bottom: 0.5rem;
+	}
+
+	@media screen and (max-width: 600px) {
+		:global(#product h2) {
+			font-size: 1.5rem;
+		}
 	}
 </style>

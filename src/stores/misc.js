@@ -1,3 +1,3 @@
 import { writable } from "svelte/store";
 
-export let side = writable("left");
+export let side = writable("right");
