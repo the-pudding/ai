@@ -10,7 +10,7 @@
 		Arial, sans-serif;
 	--font-serif: "Tiempos Text Web", Iowan Old Style, Times New Roman, Times,
 		serif;
-	--font-mono: Menlo, Consolas, Monaco, monospace;
+	--font-mono: "Inconsolata", "Courier New", Menlo, Consolas, Monaco, monospace;
 
 	/* z-index */
 	--z-bottom: -100;

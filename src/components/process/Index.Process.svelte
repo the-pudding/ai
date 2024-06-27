@@ -14,23 +14,23 @@
 
 <div id="process" class:visible={$side === "left"}>
 	<article>
-		<div><strong>Use left/right arrow keys to move between sides.</strong></div>
+		<h1>{copy.hed}</h1>
+		<div class="byline">{@html copy.byline}</div>
 
-		{#each copy.chats as { prompt, response }}
-			<Chat {prompt} {response} />
+		{#each copy.process as { type, value, description, prompt, response }}
+			{#if type === "text"}
+				<p>{@html value}</p>
+			{:else if type === "heading"}
+				<h3>{@html value}</h3>
+			{:else if type === "chat"}
+				<Chat {description} {prompt} {response} />
+			{/if}
 		{/each}
-
-		<div>
-			This button takes you to the small multiples. <button
-				on:click={() => goTo("emotions-small-multiples")}>go</button
-			>
-		</div>
 	</article>
 </div>
 
 <style>
 	#process {
-		background: var(--color-gray-50);
 		color: black;
 		width: 90vw;
 		opacity: 0.2;
@@ -40,7 +40,12 @@
 		opacity: 1;
 	}
 	article {
-		max-width: 800px;
+		max-width: 650px;
 		margin: 3rem auto;
+		font-family: var(--font-serif);
+	}
+	h1,
+	.byline {
+		text-align: center;
 	}
 </style>

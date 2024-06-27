@@ -3,22 +3,27 @@
 
 	export let prompt;
 	export let response;
+	export let description;
 </script>
 
 <div class="chat">
-	<details class="prompt">
-		<summary>Prompt 👩🏽‍💻</summary>
-		{#each prompt as { type, value }}
-			<div>{value}</div>
-		{/each}
-	</details>
+	{#if prompt && response}
+		<details class="prompt">
+			<summary>Prompt 👩🏽‍💻</summary>
+			{#each prompt as { type, value }}
+				<div>{value}</div>
+			{/each}
+		</details>
 
-	<details class="response">
-		<summary>Response 🤖</summary>
-		{#each response as { type, value }}
-			<div>{@html snarkdown(value)}</div>
-		{/each}
-	</details>
+		<details class="response">
+			<summary>Response 🤖</summary>
+			{#each response as { type, value }}
+				<div>{@html snarkdown(value)}</div>
+			{/each}
+		</details>
+	{:else}
+		<div>{description}</div>
+	{/if}
 </div>
 
 <style>
@@ -31,6 +36,8 @@
 		padding: 1rem;
 	}
 	.prompt {
+		font-family: var(--font-sans);
+		font-size: 0.9rem;
 		background: var(--color-gray-100);
 		border-radius: 10px 10px 0 0;
 	}
