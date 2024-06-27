@@ -11,7 +11,7 @@
 		<details class="prompt">
 			<summary>Prompt 👩🏽‍💻</summary>
 			{#each prompt as { type, value }}
-				<div>{value}</div>
+				<div>{@html snarkdown(value)}</div>
 			{/each}
 		</details>
 
@@ -43,7 +43,7 @@
 	}
 	.response {
 		font-family: var(--font-mono);
-		background: var(--color-gray-300);
+		background: #d1dbe7;
 		border-radius: 0 0 10px 10px;
 	}
 </style>
