@@ -8,7 +8,7 @@
 
 <div class="chat">
 	{#if prompt && response}
-		<details class="prompt">
+		<details class="prompt" open={true}>
 			<summary>Prompt 👩🏽‍💻</summary>
 			{#each prompt as { type, value }}
 				<div>{@html snarkdown(value)}</div>

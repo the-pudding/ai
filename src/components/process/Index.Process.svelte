@@ -22,7 +22,11 @@
 </script>
 
 <div id="process" class:visible={$side === "left"}>
-	<article>
+	<div class="videos">
+		<Video />
+	</div>
+
+	<div class="text">
 		<h1>{copy.hed}</h1>
 		<div class="byline">{@html copy.byline}</div>
 
@@ -41,13 +45,14 @@
 				<Chat {description} {prompt} {response} />
 			{/if}
 		{/each}
+	</div>
 
-		<Video />
-	</article>
+	<div class="videos" />
 </div>
 
 <style>
 	#process {
+		display: flex;
 		width: 90vw;
 		opacity: 0.2;
 		transition: opacity calc(var(--1s) * 0.4);
@@ -55,10 +60,15 @@
 	#process.visible {
 		opacity: 1;
 	}
-	article {
+	.text {
 		max-width: 40rem;
-		margin: 4rem 250px;
 		font-family: var(--font-serif);
+		margin-top: 5rem;
+	}
+	.videos {
+		width: 100%;
+		height: 100%;
+		min-width: 200px;
 	}
 	.byline {
 		margin-bottom: 3rem;
