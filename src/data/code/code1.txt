@@ -1,0 +1,35 @@
+import requests
+import csv
+
+# Replace 'YOUR_API_KEY' with your actual Billboard API key
+api_key = 'YOUR_API_KEY'
+
+# Specify the range of years
+start_year = 1960
+end_year = 2020
+
+# Output file name
+output_file = 'billboard_top_100.csv'
+
+# Write the data to a CSV file
+with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(['Year', 'Position', 'Song', 'Artist'])
+
+    for year in range(start_year, end_year + 1):
+        print(f"Fetching data for year {year}")
+
+        # Make a request to the Billboard API
+        url = f"https://api.billboard.com/charts/hot-100/{year}-12-31?api_key={api_key}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = response.json()
+            songs = data['content']['charts'][0]['items']
+
+            for position, song_data in enumerate(songs, start=1):
+                song_title = song_data['title']
+                artist = song_data['artist_name']
+                writer.writerow([year, position, song_title, artist])
+        else:
+            print(f"Error fetching data for year {year}: {response.status_code}")

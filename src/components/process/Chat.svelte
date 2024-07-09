@@ -1,28 +1,39 @@
 <script>
 	import snarkdown from "snarkdown";
+	import code1 from "$data/code/code1.txt?raw";
 
 	export let prompt;
 	export let response;
-	export let description;
+	export let summary;
+	export let expandPrompt;
+	export let expandResponse;
+
+	const codes = {
+		code1
+	};
 </script>
 
 <div class="chat">
 	{#if prompt && response}
-		<details class="prompt" open={true}>
-			<summary>Prompt 👩🏽‍💻</summary>
+		<details class="prompt" open={!!expandPrompt}>
+			<summary>Our prompt TLDR {summary ? `: ${summary}` : ""}</summary>
 			{#each prompt as { type, value }}
 				<div>{@html snarkdown(value)}</div>
 			{/each}
 		</details>
 
-		<details class="response">
-			<summary>Response 🤖</summary>
+		<details class="response" open={!!expandResponse}>
+			<summary>See Claude's response 🤖</summary>
 			{#each response as { type, value }}
-				<div>{@html snarkdown(value)}</div>
+				{#if type === "text"}
+					<div>{@html snarkdown(value)}</div>
+				{:else if type === "code"}
+					<pre><code>{codes[`code${value}`]}</code></pre>
+				{/if}
 			{/each}
 		</details>
 	{:else}
-		<div>{description}</div>
+		<div>{summary}</div>
 	{/if}
 </div>
 
@@ -34,6 +45,8 @@
 	}
 	details {
 		padding: 1rem;
+		max-height: 300px;
+		overflow: scroll;
 	}
 	.prompt {
 		font-family: var(--font-sans);
@@ -45,5 +58,8 @@
 		font-family: var(--font-mono);
 		background: #d1dbe7;
 		border-radius: 0 0 10px 10px;
+	}
+	code {
+		font-size: 0.8rem;
 	}
 </style>

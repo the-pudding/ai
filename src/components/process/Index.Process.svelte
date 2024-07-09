@@ -6,43 +6,53 @@
 	import { onMount } from "svelte";
 
 	onMount(() => {
-		const spans = document.querySelectorAll("span");
-		spans.forEach((span) => {
-			span.addEventListener("click", () => {
-				if ($currentVideoId) {
-					$currentVideoId = undefined;
-					$currentVideoY = undefined;
-				} else {
-					$currentVideoId = span.dataset.video;
-					$currentVideoY = span.offsetTop;
-				}
-			});
+		const span = document.querySelector("span.switch");
+		span.addEventListener("click", () => {
+			$side = "right";
 		});
 	});
+
+	$: console.log({ copy });
 </script>
 
 <div id="process" class:visible={$side === "left"}>
 	<div class="videos">
-		<Video />
+		<!-- <Video /> -->
 	</div>
 
 	<div class="text">
 		<h1>{copy.hed}</h1>
 		<div class="byline">{@html copy.byline}</div>
 
-		{#each copy.process as { type, value, description, prompt, response }}
+		{#each copy.process as { type, value }}
 			{#if type === "text"}
 				<p>{@html value}</p>
 			{:else if type === "heading"}
-				<h3>{@html value}</h3>
-			{:else if type === "list"}
+				<h3 id={value.id}>{@html value.text}</h3>
+			{:else if type === "ul"}
 				<ul>
 					{#each value as item}
 						<li>{@html item}</li>
 					{/each}
 				</ul>
+			{:else if type === "ol"}
+				<ol>
+					{#each value as item}
+						<li><a href="#{item.id}">{@html item.text}</a></li>
+					{/each}
+				</ol>
 			{:else if type === "chat"}
-				<Chat {description} {prompt} {response} />
+				<Chat {...value} />
+			{:else if type === "reaction"}
+				<details class="reaction">
+					<summary>
+						Our grade: <strong>{value.grade}</strong>
+						<span>{value.summary}</span>
+					</summary>
+					{#each value.text as d}
+						<p>{@html d.value}</p>
+					{/each}
+				</details>
 			{/if}
 		{/each}
 	</div>
@@ -94,14 +104,7 @@
 		color: var(--color-gray-600);
 		border-bottom: 1px solid var(--color-gray-600);
 	}
-	:global(span) {
-		white-space: nowrap;
-		border: 3px solid lightsteelblue;
-		border-radius: 5px;
-		padding: 0px 4px;
-	}
-	:global(span:hover) {
-		cursor: pointer;
-		background: lightsteelblue;
+	:global(span.switch) {
+		background: lightblue;
 	}
 </style>
