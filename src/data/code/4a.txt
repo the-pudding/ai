@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the data from a CSV file
+data = pd.read_csv('billboard_data.csv')
+
+# Convert the 'chart_week' column to datetime
+data['chart_week'] = pd.to_datetime(data['chart_week'])
+
+# Extract the year from the 'chart_week' column
+data['year'] = data['chart_week'].dt.year
+
+# Group the data by year and calculate the percentage of negative songs
+yearly_sentiment = data.groupby(['year', 'Sentiment']).size().unstack(fill_value=0)
+yearly_sentiment['total'] = yearly_sentiment.sum(axis=1)
+yearly_sentiment['percent_negative'] = yearly_sentiment['Negative'] / yearly_sentiment['total'] * 100
+
+# Create a line chart
+plt.figure(figsize=(10, 6))
+plt.plot(yearly_sentiment.index, yearly_sentiment['percent_negative'], marker='o')
+plt.xlabel('Year')
+plt.ylabel('Percentage of Negative Songs')
+plt.title('Year-over-Year Trend of Negative Songs in the Hot 100')
+plt.grid(True)
+plt.xticks(rotation=45)
+
+# Add annotations for key shifts or points of interest
+# (You can customize this based on your specific data and insights)
+plt.annotate('Key Shift', xy=(2015, 60), xytext=(2015, 65),
+             arrowprops=dict(facecolor='black', shrink=0.05))
+
+plt.tight_layout()
+plt.show()

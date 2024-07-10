@@ -1,0 +1,46 @@
+import requests
+import csv
+from bs4 import BeautifulSoup
+
+# Replace 'YOUR_ACCESS_TOKEN' with your actual Genius API access token
+access_token = 'YOUR_ACCESS_TOKEN'
+
+# Input file name
+input_file = 'billboard_top_100.csv'
+
+# Output file name
+output_file = 'song_lyrics.csv'
+
+# Write the data to a CSV file
+with open(input_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', newline='', encoding='utf-8') as outfile:
+    reader = csv.reader(infile)
+    writer = csv.writer(outfile)
+    writer.writerow(['Year', 'Position', 'Song', 'Artist', 'Lyrics'])
+
+    next(reader)  # Skip the header row
+
+    for row in reader:
+        year, position, song_title, artist = row
+        print(f"Fetching lyrics for {song_title} by {artist}")
+
+        # Search for the song on Genius
+        search_url = f"https://api.genius.com/search?q={song_title} {artist}"
+        headers = {'Authorization': f'Bearer {access_token}'}
+        response = requests.get(search_url, headers=headers)
+
+        if response.status_code == 200:
+            data = response.json()
+            if data['response']['hits']:
+                song_url = data['response']['hits'][0]['result']['url']
+                song_response = requests.get(song_url)
+                soup = BeautifulSoup(song_response.text, 'html.parser')
+                lyrics_div = soup.find('div', class_='lyrics')
+                if lyrics_div:
+                    lyrics = lyrics_div.get_text(separator='\n').strip()
+                    writer.writerow([year, position, song_title, artist, lyrics])
+                else:
+                    print(f"Lyrics not found for {song_title} by {artist}")
+            else:
+                print(f"Song not found: {song_title} by {artist}")
+        else:
+            print(f"Error fetching lyrics for {song_title} by {artist}: {response.status_code}")

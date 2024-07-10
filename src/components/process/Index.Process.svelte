@@ -43,6 +43,11 @@
 				</ol>
 			{:else if type === "chat"}
 				<Chat {...value} />
+			{:else if type === "figure"}
+				<figure>
+					<img src="assets/img/{value.src}" alt={value.alt} />
+					<figcaption>{value.caption}</figcaption>
+				</figure>
 			{:else if type === "reaction"}
 				<details class="reaction">
 					<summary>

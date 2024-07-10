@@ -1,0 +1,57 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import ast
+
+# Read the data from the CSV file
+data = pd.read_csv('song_emotion_results.csv')
+
+# Convert the 'chart_week' column to datetime
+data['chart_week'] = pd.to_datetime(data['chart_week'])
+
+# Extract the year and decade from the 'chart_week' column
+data['year'] = data['chart_week'].dt.year
+data['decade'] = (data['year'] // 10) * 10
+
+# Filter the data to include only songs that reached the top 10
+top_10_data = data[data['peak_pos'] <= 10]
+
+# Convert the 'Emotions' column from string to dictionary
+top_10_data['Emotions'] = top_10_data['Emotions'].apply(ast.literal_eval)
+
+# Define the emotions to analyze
+emotions = ['anger', 'anticipation', 'disgust', 'joy', 'surprise', 'trust', 'fear', 'sadness']
+
+# Define positive and negative emotions
+positive_emotions = ['anticipation', 'joy', 'surprise', 'trust']
+negative_emotions = ['anger', 'disgust', 'fear', 'sadness']
+
+# Calculate the normalized emotion scores for each song
+def normalize_emotions(row):
+    emotion_scores = [row['Emotions'].get(emotion, 0) for emotion in emotions]
+    total_score = sum(emotion_scores)
+    if total_score > 0:
+        normalized_scores = [score / total_score for score in emotion_scores]
+    else:
+        normalized_scores = [0] * len(emotions)
+    return pd.Series(normalized_scores, index=emotions)
+
+top_10_data[emotions] = top_10_data.apply(normalize_emotions, axis=1)
+
+# Calculate the average normalized emotion scores for each decade
+decade_emotion_avg = top_10_data.groupby('decade')[emotions].mean()
+
+# Reorder the columns to have positive emotions on the bottom and negative emotions on the top
+decade_emotion_avg = pd.concat([decade_emotion_avg[positive_emotions], decade_emotion_avg[negative_emotions]], axis=1)
+
+# Create a stacked bar chart
+ax = decade_emotion_avg.plot(kind='bar', stacked=True, figsize=(10, 6))
+ax.set_xlabel('Decade')
+ax.set_ylabel('Share of Emotions')
+ax.set_title('Average Emotional Profile of Top 10 Hits by Decade')
+ax.legend(title='Emotion', bbox_to_anchor=(1.05, 1), loc='upper left')
+
+# Rotate x-tick labels for better readability
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()

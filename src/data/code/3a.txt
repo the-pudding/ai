@@ -1,0 +1,67 @@
+import csv
+import os
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nrclex import NRCLex
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# Input file name (filtered Billboard data)
+input_file = 'filtered_billboard_data.csv'
+
+# Output file name for the emotion analysis results
+output_file = 'song_emotion_results.csv'
+
+# Directory containing the lyrics files
+lyrics_dir = 'lyrics'
+
+# Read the filtered Billboard data from the CSV file
+with open(input_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', newline='', encoding='utf-8') as outfile:
+    reader = csv.DictReader(infile)
+    fieldnames = reader.fieldnames + ['Sentiment', 'Emotions']
+    writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+
+    # Write the header row
+    writer.writeheader()
+
+    for row in reader:
+        song_title = row['title']
+        artist = row['performer']
+        chart_week = row['chart_week']
+        year = chart_week.split('-')[0]
+
+        print(f"Processing: {song_title} by {artist}")
+
+        # Generate the filename for the lyrics file
+        filename = f"{year}_{song_title}_{artist}.txt"
+        filename = ''.join(c for c in filename if c.isalnum() or c in ['-', '_', '.'])
+
+        # Check if the lyrics file exists
+        if os.path.exists(os.path.join(lyrics_dir, filename)):
+            # Read the lyrics from the file
+            with open(os.path.join(lyrics_dir, filename), 'r', encoding='utf-8') as lyrics_file:
+                lyrics = lyrics_file.read()
+
+            # Tokenize the lyrics and remove stopwords
+            tokens = word_tokenize(lyrics)
+            tokens = [word.lower() for word in tokens if word.isalpha() and word.lower() not in stopwords.words('english')]
+            cleaned_lyrics = ' '.join(tokens)
+
+            # Initialize the NRC Emotion Lexicon with the cleaned lyrics
+            nrc = NRCLex(cleaned_lyrics)
+
+            # Perform emotion analysis using the NRC Emotion Lexicon
+            emotion_scores = nrc.raw_emotion_scores
+            sentiment = 'Positive' if emotion_scores['positive'] >= emotion_scores['negative'] else 'Negative'
+            emotions = {emotion: score for emotion, score in emotion_scores.items() if emotion not in ['positive', 'negative']}
+
+            # Add the emotion analysis results to the row
+            row['Sentiment'] = sentiment
+            row['Emotions'] = str(emotions)
+
+            # Write the row to the output file
+            writer.writerow(row)
+        else:
+            print(f"Lyrics file not found for {song_title} by {artist}")

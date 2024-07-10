@@ -1,6 +1,13 @@
 <script>
 	import snarkdown from "snarkdown";
-	import code1 from "$data/code/code1.txt?raw";
+	import code1a from "$data/code/1a.txt?raw";
+	import code1b from "$data/code/1b.txt?raw";
+	import code1c from "$data/code/1c.txt?raw";
+	import code2a from "$data/code/2a.txt?raw";
+	import code3a from "$data/code/3a.txt?raw";
+	import code3b from "$data/code/3b.txt?raw";
+	import code4a from "$data/code/4a.txt?raw";
+	import code5a from "$data/code/5a.txt?raw";
 
 	export let prompt;
 	export let response;
@@ -9,7 +16,14 @@
 	export let expandResponse;
 
 	const codes = {
-		code1
+		code1a,
+		code1b,
+		code1c,
+		code2a,
+		code3a,
+		code3b,
+		code4a,
+		code5a
 	};
 </script>
 
@@ -59,7 +73,10 @@
 		background: #d1dbe7;
 		border-radius: 0 0 10px 10px;
 	}
-	code {
+	pre {
 		font-size: 0.8rem;
+		background: lightgrey;
+		padding: 1rem;
+		overflow-x: scroll;
 	}
 </style>

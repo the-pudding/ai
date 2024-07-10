@@ -1,0 +1,33 @@
+import csv
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+# Input file name
+input_file = 'song_lyrics.csv'
+
+# Output file name
+output_file = 'song_sentiment.csv'
+
+# Initialize the sentiment analyzer
+sia = SentimentIntensityAnalyzer()
+
+# Write the data to a CSV file
+with open(input_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', newline='', encoding='utf-8') as outfile:
+    reader = csv.reader(infile)
+    writer = csv.writer(outfile)
+    writer.writerow(['Year', 'Position', 'Song', 'Artist', 'Sentiment', 'Positive', 'Negative', 'Neutral', 'Compound'])
+
+    next(reader)  # Skip the header row
+
+    for row in reader:
+        year, position, song_title, artist, lyrics = row
+        print(f"Analyzing sentiment for {song_title} by {artist}")
+
+        # Perform sentiment analysis on the lyrics
+        sentiment_scores = sia.polarity_scores(lyrics)
+        sentiment = max(sentiment_scores, key=sentiment_scores.get)
+        positive = sentiment_scores['pos']
+        negative = sentiment_scores['neg']
+        neutral = sentiment_scores['neu']
+        compound = sentiment_scores['compound']
+
+        writer.writerow([year, position, song_title, artist, sentiment, positive, negative, neutral, compound])
