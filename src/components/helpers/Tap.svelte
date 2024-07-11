@@ -2,6 +2,7 @@
 	import ChevronLeft from "lucide-svelte/icons/chevron-left";
 	import ChevronRight from "lucide-svelte/icons/chevron-right";
 	import { createEventDispatcher } from "svelte";
+	import { side } from "$stores/misc.js";
 
 	export let debug = false;
 	export let enableKeyboard = false;
@@ -46,6 +47,7 @@
 			style="width: {getW(dir)}; height: {getH(dir)};"
 			aria-label={dir}
 			class="{dir} {arrowPosition}"
+			class:active={dir === $side}
 			class:full
 			disabled={disable.includes(dir)}
 		>
@@ -90,8 +92,14 @@
 		cursor: not-allowed;
 	}
 
-	button:hover {
+	.left:not(.active):hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+	.right:not(.active):hover {
 		background-color: rgba(255, 255, 255, 0.2);
+	}
+	.active {
+		visibility: hidden;
 	}
 
 	.left {

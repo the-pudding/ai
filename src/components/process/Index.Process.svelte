@@ -1,89 +1,68 @@
 <script>
-	import Video from "$components/process/Video.svelte";
 	import Chat from "$components/process/Chat.svelte";
-	import { side, currentVideoId, currentVideoY } from "$stores/misc.js";
+	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
-	import { onMount } from "svelte";
-
-	onMount(() => {
-		const span = document.querySelector("span.switch");
-		span.addEventListener("click", () => {
-			$side = "right";
-		});
-	});
 
 	$: console.log({ copy });
 </script>
 
 <div id="process" class:visible={$side === "left"}>
-	<div class="videos">
-		<!-- <Video /> -->
-	</div>
+	<h1>{copy.hed}</h1>
+	<div class="byline">{@html copy.byline}</div>
 
-	<div class="text">
-		<h1>{copy.hed}</h1>
-		<div class="byline">{@html copy.byline}</div>
+	{#each copy.process as { type, value }}
+		{#if type === "text"}
+			<p>{@html value}</p>
+		{:else if type === "heading"}
+			<h3 id={value.id}>{@html value.text}</h3>
+		{:else if type === "callout"}
+			<div class="callout" on:click={() => ($side = "right")}>
+				{#each value as text}
+					<p>{@html text.value}</p>
+				{/each}
+			</div>
+		{:else if type === "ul"}
+			<ul>
+				{#each value as item}
+					<li>{@html item}</li>
+				{/each}
+			</ul>
+		{:else if type === "ol"}
+			<ol>
+				{#each value as item}
+					<li><a href="#{item.id}">{@html item.text}</a></li>
+				{/each}
+			</ol>
+		{:else if type === "chat"}
+			<Chat {...value} />
+		{:else if type === "figure"}
+			<figure>
+				<img src="assets/img/{value.src}" alt={value.alt} />
+				<figcaption>{value.caption}</figcaption>
+			</figure>
+		{:else if type === "reaction"}
+			<div class="reaction">
+				<h4>Our grade: <strong>{value.grade}</strong></h4>
+				<span class="summary">{value.summary}</span>
 
-		{#each copy.process as { type, value }}
-			{#if type === "text"}
-				<p>{@html value}</p>
-			{:else if type === "heading"}
-				<h3 id={value.id}>{@html value.text}</h3>
-			{:else if type === "ul"}
-				<ul>
-					{#each value as item}
-						<li>{@html item}</li>
-					{/each}
-				</ul>
-			{:else if type === "ol"}
-				<ol>
-					{#each value as item}
-						<li><a href="#{item.id}">{@html item.text}</a></li>
-					{/each}
-				</ol>
-			{:else if type === "chat"}
-				<Chat {...value} />
-			{:else if type === "figure"}
-				<figure>
-					<img src="assets/img/{value.src}" alt={value.alt} />
-					<figcaption>{value.caption}</figcaption>
-				</figure>
-			{:else if type === "reaction"}
-				<details class="reaction">
-					<summary>
-						Our grade: <strong>{value.grade}</strong>
-						<span>{value.summary}</span>
-					</summary>
-					{#each value.text as d}
-						<p>{@html d.value}</p>
-					{/each}
-				</details>
-			{/if}
-		{/each}
-	</div>
-
-	<div class="videos" />
+				{#each value.text as d}
+					<p>{@html d.value}</p>
+				{/each}
+			</div>
+		{/if}
+	{/each}
 </div>
 
 <style>
 	#process {
-		display: flex;
-		width: 90vw;
+		max-width: 40rem;
+		margin: 5rem auto;
+		font-family: var(--font-serif);
 		opacity: 0.2;
 		transition: opacity calc(var(--1s) * 0.4);
 	}
 	#process.visible {
 		opacity: 1;
-	}
-	.text {
-		max-width: 40rem;
-		font-family: var(--font-serif);
-		margin-top: 5rem;
-	}
-	.videos {
-		width: 100%;
-		height: 100%;
-		min-width: 200px;
 	}
 	.byline {
 		margin-bottom: 3rem;
@@ -96,8 +75,32 @@
 	h3 {
 		font-weight: bold;
 	}
-	ul {
+	h3 {
+		font-size: 2rem;
+		margin-top: 4rem;
+	}
+	ul,
+	ol {
 		padding-left: 3rem;
+	}
+	.callout {
+		background: var(--color-gray-100);
+		padding: 0.25rem 1rem;
+	}
+	.callout:hover {
+		cursor: pointer;
+		background: var(--color-gray-200);
+	}
+	.reaction {
+		border-left: 4px solid var(--color-green);
+		background: rgb(52 162 158 / 20%);
+		padding: 0.25rem 1rem;
+	}
+	.reaction h4 {
+		font-size: 1.25rem;
+	}
+	.reaction .summary {
+		font-style: italic;
 	}
 
 	:global(#process a) {
@@ -108,8 +111,5 @@
 	:global(#process a:hover) {
 		color: var(--color-gray-600);
 		border-bottom: 1px solid var(--color-gray-600);
-	}
-	:global(span.switch) {
-		background: lightblue;
 	}
 </style>

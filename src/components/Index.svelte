@@ -1,18 +1,13 @@
 <script>
+	import Tap from "$components/helpers/Tap.svelte";
 	import Product from "$components/product/Index.Product.svelte";
 	import Process from "$components/process/Index.Process.svelte";
 	import { side } from "$stores/misc.js";
 
-	const onKeyDown = (e) => {
-		if (e.keyCode === 37) {
-			$side = "left";
-		} else if (e.keyCode === 39) {
-			$side = "right";
-		}
+	const onTap = (e) => {
+		$side = e.detail;
 	};
 </script>
-
-<svelte:window on:keydown|preventDefault={onKeyDown} />
 
 <div class="outer">
 	<div
@@ -23,6 +18,14 @@
 		<Product />
 	</div>
 </div>
+
+<Tap
+	full={true}
+	size={$side === "left" ? ["90vw", "10vw"] : ["10vw", "90vw"]}
+	enableKeyboard={true}
+	marginTop={0}
+	on:tap={onTap}
+/>
 
 <style>
 	.outer {

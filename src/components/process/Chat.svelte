@@ -30,14 +30,14 @@
 <div class="chat">
 	{#if prompt && response}
 		<details class="prompt" open={!!expandPrompt}>
-			<summary>Our prompt TLDR {summary ? `: ${summary}` : ""}</summary>
+			<summary>{summary}</summary>
 			{#each prompt as { type, value }}
 				<div>{@html snarkdown(value)}</div>
 			{/each}
 		</details>
 
 		<details class="response" open={!!expandResponse}>
-			<summary>See Claude's response 🤖</summary>
+			<summary>See Claude's response</summary>
 			{#each response as { type, value }}
 				{#if type === "text"}
 					<div>{@html snarkdown(value)}</div>
@@ -53,7 +53,6 @@
 
 <style>
 	.chat {
-		border: 2px solid var(--color-gray-600);
 		border-radius: 10px;
 		margin: 2rem 0;
 	}
@@ -61,6 +60,12 @@
 		padding: 1rem;
 		max-height: 300px;
 		overflow: scroll;
+	}
+	summary {
+		margin-bottom: 0.5rem;
+	}
+	summary:hover {
+		cursor: pointer;
 	}
 	.prompt {
 		font-family: var(--font-sans);
