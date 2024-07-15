@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      gac:
+        specifier: ^1.0.2
+        version: 1.0.2
+      snarkdown:
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@rollup/plugin-dsv':
         specifier: ^3.0.4
@@ -766,6 +773,10 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  gac@1.0.2:
+    resolution: {integrity: sha512-VgX+aU8EJ6EBxNMuKUS3F4WYuv/vyVsaLf3okzmyEgDBfXF9i5InKBrI0v2Lqeb3N1OeMjOXJkoUQ2te7jZfKg==}
+    hasBin: true
+
   glob@10.3.15:
     resolution: {integrity: sha512-0c6RlJt1TICLyvJYIApxb8GsXoai0KUP7AxKKAtsYXdgJR1mGEUa7DgwShbdk1nly0PYoZj01xd4hzbq3fsjpw==}
     engines: {node: '>=16 || 14 >=14.18'}
@@ -1027,6 +1038,9 @@ packages:
 
   snake-case@3.0.4:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
+
+  snarkdown@2.0.0:
+    resolution: {integrity: sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A==}
 
   sorcery@0.11.0:
     resolution: {integrity: sha512-J69LQ22xrQB1cIFJhPfgtLuI6BpWRiWu1Y3vSsIwK/eAScqJxd/+CJlUuHQRdX2C9NGFamq+KqNywGgaThwfHw==}
@@ -1849,6 +1863,8 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+  gac@1.0.2: {}
+
   glob@10.3.15:
     dependencies:
       foreground-child: 3.1.1
@@ -2114,6 +2130,8 @@ snapshots:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.6.2
+
+  snarkdown@2.0.0: {}
 
   sorcery@0.11.0:
     dependencies:
