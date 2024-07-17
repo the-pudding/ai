@@ -111,7 +111,23 @@
 	.reaction .summary {
 		font-style: italic;
 	}
-
+	figure {
+		margin: 2rem 0;
+	}
+	figcaption {
+		font-family: var(--font-sans);
+		font-size: 0.8rem;
+		color: var(--color-gray-600);
+		margin-top: 0.5rem;
+	}
+	:global(p code) {
+		background: var(--color-gray-100);
+		border: 1px solid var(--color-gray-300);
+		border-radius: 4px;
+		padding: 0 4px;
+		font-size: 0.9rem;
+		color: #c3617a;
+	}
 	:global(#process a) {
 		color: var(--color-fg);
 		text-decoration: none;

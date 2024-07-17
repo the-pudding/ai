@@ -80,7 +80,9 @@
 	}
 	pre {
 		font-size: 0.8rem;
-		background: lightgrey;
+		background: var(--color-gray-100);
+		border: 1px solid var(--color-gray-300);
+		border-radius: 4px;
 		padding: 1rem;
 		overflow-x: scroll;
 	}
