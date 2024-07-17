@@ -102,6 +102,9 @@
 	.reaction .summary {
 		font-style: italic;
 	}
+	figure {
+		margin: 2rem 0;
+	}
 	figcaption {
 		font-family: var(--font-sans);
 		font-size: 0.8rem;
