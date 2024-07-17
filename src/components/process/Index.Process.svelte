@@ -3,7 +3,7 @@
 	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 
-	$: console.log({ copy });
+	// $: console.log({ copy });
 </script>
 
 <div id="process" class:visible={$side === "left"}>
@@ -49,6 +49,15 @@
 					<p>{@html d.value}</p>
 				{/each}
 			</div>
+		{:else if type === "video"}
+			<figure>
+				<!-- svelte-ignore a11y-media-has-caption -->
+				<video preload autoplay="true" loop muted>
+					<source src="assets/{value.src}" type="video/mp4" />
+					Your browser does not support the video tag.
+				</video>
+				<figcaption>{value.caption}</figcaption>
+			</figure>
 		{/if}
 	{/each}
 </div>
