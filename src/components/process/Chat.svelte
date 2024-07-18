@@ -30,14 +30,28 @@
 <div class="chat">
 	{#if prompt && response}
 		<details class="prompt" open={!!expandPrompt}>
-			<summary>{summary}</summary>
+			<summary
+				><p>
+					<span class="arrow">▶</span>
+					<img src="assets/pudding-black.png" alt="pudding logo" /><span
+						>{summary}</span
+					>
+				</p></summary
+			>
 			{#each prompt as { type, value }}
 				<div>{@html snarkdown(value)}</div>
 			{/each}
 		</details>
 
 		<details class="response" open={!!expandResponse}>
-			<summary>See Claude's response</summary>
+			<summary
+				><p>
+					<span class="arrow">▶</span>
+					<img src="assets/claude.png" alt="claude logo" /><span
+						>See Claude's response</span
+					>
+				</p></summary
+			>
 			{#each response as { type, value }}
 				{#if type === "text"}
 					<div>{@html snarkdown(value)}</div>
@@ -62,11 +76,31 @@
 		overflow: scroll;
 	}
 	summary {
-		margin-bottom: 0.5rem;
-	}
-	summary:hover {
+		display: flex;
+		align-items: center;
+
 		cursor: pointer;
 	}
+	summary p {
+		display: inline-flex;
+		align-items: center;
+		margin: 0;
+	}
+
+	summary img {
+		width: 48px;
+		height: auto;
+		margin-right: 8px;
+		background: var(--color-white);
+		border-radius: 50%;
+		padding: 8px;
+		display: inline-block;
+	}
+
+	summary .arrow {
+		margin-right: 8px;
+	}
+
 	.prompt {
 		font-family: var(--font-sans);
 		font-size: 0.9rem;
