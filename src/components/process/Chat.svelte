@@ -110,6 +110,7 @@
 		font-family: var(--font-sans);
 		font-size: 0.9rem;
 		background: var(--color-gray-100);
+		border-bottom: none;
 		border-radius: 10px 10px 0 0;
 	}
 	.response {

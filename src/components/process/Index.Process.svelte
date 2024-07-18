@@ -40,6 +40,15 @@
 				<img src="assets/img/{value.src}" alt={value.alt} />
 				<figcaption>{value.caption}</figcaption>
 			</figure>
+		{:else if type === "figure-grid"}
+			<div class="grid">
+				{#each value.figures as { src, alt, caption }}
+					<figure>
+						<img src="assets/img/{src}" {alt} />
+						<figcaption>{caption}</figcaption>
+					</figure>
+				{/each}
+			</div>
 		{:else if type === "reaction"}
 			<div class="reaction">
 				<h4>Our grade: <strong>{value.grade}</strong></h4>
@@ -121,6 +130,15 @@
 		font-size: 0.8rem;
 		color: var(--color-gray-600);
 		margin-top: 0.5rem;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1rem;
+		margin: 2rem 0;
+	}
+	.grid figure {
+		margin: 0;
 	}
 	:global(p code) {
 		background: var(--color-gray-100);
