@@ -1,0 +1,118 @@
+<script>
+  import { onMount } from 'svelte';
+  import { csv } from 'd3-fetch';
+  import { scaleTime, scaleLinear } from 'd3-scale';
+  import { line } from 'd3-shape';
+  import { extent, rollups } from 'd3-array';
+  import { timeFormat } from 'd3-time-format';
+
+  let data = [];
+  let width = 800;
+  let height = 400;
+
+  const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+  const chartWidth = width - margin.left - margin.right;
+  const chartHeight = height - margin.top - margin.bottom;
+
+  const formatDate = timeFormat('%Y');
+
+  let xScale;
+  let yScale;
+  let chartLine;
+
+  const processData = (data) => {
+    const groupedData = rollups(
+      data,
+      (v) => v.length,
+      (d) => d.chart_week.slice(0, 4),
+      (d) => d.Sentiment
+    );
+
+    const transformedData = Array.from(groupedData, ([year, sentimentData]) => {
+      const total = sentimentData.reduce((sum, [sentiment, count]) => sum + count, 0);
+      const negativePercentage = (sentimentData.find(([sentiment]) => sentiment === 'Negative')?.[1] || 0) / total;
+      return { year: new Date(year), negativePercentage };
+    });
+
+    return transformedData;
+  };
+
+  onMount(async () => {
+    data = processData(await csv('assets/billboard.csv'));
+
+    xScale = scaleTime()
+      .domain(extent(data, (d) => d.year))
+      .range([0, chartWidth]);
+
+    yScale = scaleLinear()
+      .domain([0, 1])
+      .range([chartHeight, 0]);
+
+    chartLine = line()
+      .x((d) => xScale(d.year))
+      .y((d) => yScale(d.negativePercentage));
+  });
+</script>
+
+<div class="chart-container" bind:clientWidth={width}>
+  <h3 class="chart-title">Percentage of Negative Songs Over Time</h3>
+  <svg {width} {height} aria-labelledby="chartTitle chartDesc" role="img">
+    <title id="chartTitle">Percentage of Negative Songs Over Time</title>
+    <desc id="chartDesc">A line chart showing the percentage of negative songs in the Billboard Hot 100 top 10 from 1960 to 2020.</desc>
+    <g transform="translate({margin.left}, {margin.top})">
+      <path class="chart-line" d={chartLine(data)} />
+      <g class="x-axis" transform="translate(0, {chartHeight})">
+        {#each xScale.ticks(5) as tick}
+          <g class="tick" transform="translate({xScale(tick)}, 0)">
+            <line y2="6" stroke="currentColor" />
+            <text dy="0.71em" y="9" text-anchor="middle">{formatDate(tick)}</text>
+          </g>
+        {/each}
+      </g>
+      <g class="y-axis">
+        {#each yScale.ticks(5) as tick}
+          <g class="tick" transform="translate(0, {yScale(tick)})">
+            <line x2={chartWidth} stroke="currentColor" />
+            <text x="-9" dy="0.32em" text-anchor="end">{tick * 100}%</text>
+          </g>
+        {/each}
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .chart-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .chart-title {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .chart-line {
+    fill: none;
+    stroke: var(--accent-color);
+    stroke-width: 2;
+  }
+
+  .x-axis,
+  .y-axis {
+    font-family: var(--font-sans);
+    font-size: 12px;
+  }
+
+  .tick line {
+    stroke: var(--text-color);
+    stroke-opacity: 0.2;
+  }
+
+  .tick text {
+    fill: var(--text-color);
+  }
+</style>

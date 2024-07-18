@@ -1,0 +1,52 @@
+<script>
+  import Header from './Header.svelte';
+  import Introduction from './Introduction.svelte';
+  import NegativeSongsChart from './NegativeSongsChart.svelte';
+  import EmotionChart from './EmotionChart.svelte';
+  import ArtistScatterplot from './ArtistScatterplot.svelte';
+  import ArtistRadarChart from './ArtistRadarChart.svelte';
+  import Conclusion from './Conclusion.svelte';
+  import Methodology from './Methodology.svelte';
+  import Footer from './Footer.svelte';
+</script>
+
+<main>
+  <Header />
+
+  <Introduction />
+
+  <section>
+    <h2>The Rise of Negativity</h2>
+    <NegativeSongsChart />
+    <EmotionChart />
+  </section>
+
+  <section>
+    <h2>The Artist Landscape</h2>
+    <ArtistScatterplot />
+    <ArtistRadarChart />
+  </section>
+
+  <Conclusion />
+
+  <Methodology />
+
+  <Footer />
+</main>
+
+<style>
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+</style>

@@ -3,7 +3,7 @@
 	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 
-	// $: console.log({ copy });
+	$: console.log({ copy });
 </script>
 
 <div id="process" class:visible={$side === "left"}>

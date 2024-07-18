@@ -8,6 +8,8 @@
 	import code3b from "$data/code/3b.txt?raw";
 	import code4a from "$data/code/4a.txt?raw";
 	import code5a from "$data/code/5a.txt?raw";
+	import code6a from "$data/code/6a.txt?raw";
+	import code7a from "$data/code/7a.txt?raw";
 
 	export let prompt;
 	export let response;
@@ -24,7 +26,9 @@
 		code3a,
 		code3b,
 		code4a,
-		code5a
+		code5a,
+		code6a,
+		code7a
 	};
 </script>
 
@@ -61,8 +65,8 @@
 				{/if}
 			{/each}
 		</details>
-	{:else}
-		<div>{summary}</div>
+		<!-- {:else}
+		<div>{summary}</div> -->
 	{/if}
 </div>
 
