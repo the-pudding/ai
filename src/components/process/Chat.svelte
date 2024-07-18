@@ -11,7 +11,8 @@
 
 	export let prompt;
 	export let response;
-	export let summary;
+	export let promptSummary;
+	export let responseSummary;
 	export let expandPrompt;
 	export let expandResponse;
 
@@ -34,7 +35,7 @@
 				><p>
 					<span class="arrow">▶</span>
 					<img src="assets/pudding-black.png" alt="pudding logo" /><span
-						>{summary}</span
+						>{promptSummary}</span
 					>
 				</p></summary
 			>
@@ -48,7 +49,7 @@
 				><p>
 					<span class="arrow">▶</span>
 					<img src="assets/claude.png" alt="claude logo" /><span
-						>See Claude's response</span
+						>{responseSummary}</span
 					>
 				</p></summary
 			>

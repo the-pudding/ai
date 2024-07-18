@@ -58,6 +58,8 @@
 				</video>
 				<figcaption>{value.caption}</figcaption>
 			</figure>
+		{:else if type === "editorNote"}
+			<p class="note"><strong>Editor’s Note:</strong> {value}</p>
 		{/if}
 	{/each}
 </div>
@@ -136,5 +138,9 @@
 	:global(#process a:hover) {
 		color: var(--color-gray-600);
 		border-bottom: 1px solid var(--color-gray-600);
+	}
+
+	.note {
+		background: pink;
 	}
 </style>
