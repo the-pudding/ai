@@ -2,6 +2,9 @@
 	import Chat from "$components/process/Chat.svelte";
 	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
+
+	console.log(copy.process.filter((d) => d.type === "reaction"));
+	console.log(copy.process.filter((d) => d.type === "heading"));
 </script>
 
 <div id="process" class:visible={$side === "left"}>
@@ -20,9 +23,9 @@
 			{:else if type === "heading"}
 				<h2 id={value.id}><strong>{@html value.text}</strong></h2>
 			{:else if type === "cta"}
-				<div class="cta">
+				<button class="cta" on:click={() => ($side = "right")}>
 					<p>{@html value}</p>
-				</div>
+				</button>
 			{:else if type === "ul"}
 				<ul>
 					{#each value as item}
@@ -37,11 +40,6 @@
 				</ol>
 			{:else if type === "chat"}
 				<Chat {...value} />
-			{:else if type === "preview"}
-				<div class="preview">
-					<h3><strong>Our grade: {value.grade}</strong></h3>
-					<span class="summary">{value.summary}</span>
-				</div>
 			{:else if type === "figure"}
 				<figure>
 					<img src="assets/img/{value.src}" alt={value.alt} />
@@ -58,11 +56,24 @@
 				</div>
 			{:else if type === "reaction"}
 				<div class="reaction">
-					<h3><strong>Reflection</strong></h3>
-					{#each value as d}
-						<p>{@html d.value}</p>
-					{/each}
+					<h3><strong>Our grade: {value.grade}</strong></h3>
+					<span class="summary">{value.summary}</span>
+					<div class="text">
+						{#each value.text as { value }}
+							<p>{@html value}</p>
+						{/each}
+					</div>
 				</div>
+			{:else if type === "report-card"}
+				<h2><strong>{value.title}</strong></h2>
+				<table>
+					{#each value.sections as { id, text, grade }}
+						<tr>
+							<td><a href="#{id}">{text}</a></td>
+							<td class="grade"><strong>{grade}</strong></td>
+						</tr>
+					{/each}
+				</table>
 			{:else if type === "video"}
 				<figure>
 					<!-- svelte-ignore a11y-media-has-caption -->
@@ -128,20 +139,29 @@
 		margin: 32px 0;
 	}
 
+	tr {
+		border-left: 4px solid var(--color-primary);
+	}
+	td {
+		padding: 12px 0;
+		padding-left: 16px;
+	}
+	td.grade {
+		font-size: var(--28px);
+	}
+
 	.cta {
 		background: var(--color-primary);
 		color: var(--color-bg);
 		padding: 16px;
 		margin: 32px 0;
 		cursor: pointer;
+		text-align: left;
+		font-family: var(--sans);
 	}
 
 	.cta p {
 		margin: 0;
-	}
-
-	.reaction {
-		margin-top: 32px;
 	}
 
 	.reaction h3 {
@@ -149,16 +169,13 @@
 		margin-bottom: 8px;
 	}
 
-	.preview {
-		/* background: var(--color-primary);
-		color: var(--color-bg); */
-		border-left: 4px solid var(--color-fg);
+	.reaction {
+		border-left: 4px solid var(--color-primary);
 		padding: 0 16px;
 	}
 
-	.preview h3 {
-		margin: 0;
-		margin-bottom: 8px;
+	.reaction .text {
+		font-size: var(--14px);
 	}
 
 	figure {
