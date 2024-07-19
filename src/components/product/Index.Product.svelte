@@ -94,12 +94,8 @@
 	#product {
 		width: 90vw;
 		background: var(--background-color);
-		opacity: 0.2;
-		transition: opacity calc(var(--1s) * 0.4);
 	}
-	#product.visible {
-		opacity: 1;
-	}
+
 	:global(#product) {
 		--background-color: #1d1f21;
 		--text-color: #e6e6e6;

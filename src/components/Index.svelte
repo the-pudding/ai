@@ -1,4 +1,5 @@
 <script>
+	import Footer from "$components/process/Footer.svelte";
 	import Tap from "$components/helpers/Tap.svelte";
 	import Product from "$components/product/Index.Product.svelte";
 	import Process from "$components/process/Index.Process.svelte";
@@ -18,6 +19,8 @@
 		<Product />
 	</div>
 </div>
+
+<Footer></Footer>
 
 <Tap
 	full={true}

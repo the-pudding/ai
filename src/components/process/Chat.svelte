@@ -15,8 +15,9 @@
 	export let response;
 	export let promptSummary;
 	export let responseSummary;
-	export let expandPrompt;
-	export let expandResponse;
+
+	let promptOpen;
+	let responseOpen;
 
 	const codes = {
 		code1a,
@@ -34,36 +35,40 @@
 
 <div class="chat">
 	{#if prompt && response}
-		<details class="prompt" open={!!expandPrompt}>
+		<details class="prompt" bind:open={promptOpen}>
 			<summary
 				><p>
-					<span class="arrow">▶</span>
+					<span class="arrow">{promptOpen ? "▼" : "▶"}</span>
 					<img src="assets/pudding-black.png" alt="pudding logo" /><span
 						>{promptSummary}</span
 					>
 				</p></summary
 			>
-			{#each prompt as { type, value }}
-				<div>{@html snarkdown(value)}</div>
-			{/each}
+			<div class="inner">
+				{#each prompt as { type, value }}
+					<div>{@html snarkdown(value)}</div>
+				{/each}
+			</div>
 		</details>
 
-		<details class="response" open={!!expandResponse}>
+		<details class="response" bind:open={responseOpen}>
 			<summary
 				><p>
-					<span class="arrow">▶</span>
+					<span class="arrow">{responseOpen ? "▼" : "▶"}</span>
 					<img src="assets/claude.png" alt="claude logo" /><span
 						>{responseSummary}</span
 					>
 				</p></summary
 			>
-			{#each response as { type, value }}
-				{#if type === "text"}
-					<div>{@html snarkdown(value)}</div>
-				{:else if type === "code"}
-					<pre><code>{codes[`code${value}`]}</code></pre>
-				{/if}
-			{/each}
+			<div class="inner">
+				{#each response as { type, value }}
+					{#if type === "text"}
+						<div>{@html snarkdown(value)}</div>
+					{:else if type === "code"}
+						<pre><code>{codes[`code${value}`]}</code></pre>
+					{/if}
+				{/each}
+			</div>
 		</details>
 		<!-- {:else}
 		<div>{summary}</div> -->
@@ -72,20 +77,36 @@
 
 <style>
 	.chat {
-		border-radius: 10px;
-		margin: 2rem 0;
+		font-family: var(--font-mono);
+		line-height: 1.2;
+		margin: 32px 0;
 	}
-	details {
-		padding: 1rem;
+
+	.inner {
+		padding: 16px;
 		max-height: 300px;
-		overflow: scroll;
+		overflow: auto;
 	}
+
+	details {
+		padding: 16px;
+	}
+
+	details.prompt {
+		background: var(--color-gray-100);
+	}
+
+	details.response {
+		background: var(--color-gray-300);
+	}
+
 	summary {
 		display: flex;
 		align-items: center;
-
 		cursor: pointer;
+		padding: 8px 0;
 	}
+
 	summary p {
 		display: inline-flex;
 		align-items: center;
@@ -95,7 +116,7 @@
 	summary img {
 		width: 48px;
 		height: auto;
-		margin-right: 8px;
+		margin-right: 16px;
 		background: var(--color-white);
 		border-radius: 50%;
 		padding: 8px;
@@ -103,27 +124,13 @@
 	}
 
 	summary .arrow {
-		margin-right: 8px;
+		margin-right: 16px;
 	}
 
-	.prompt {
-		font-family: var(--font-sans);
-		font-size: 0.9rem;
-		background: var(--color-gray-100);
-		border-bottom: none;
-		border-radius: 10px 10px 0 0;
-	}
-	.response {
-		font-family: var(--font-mono);
-		background: #d1dbe7;
-		border-radius: 0 0 10px 10px;
-	}
 	pre {
-		font-size: 0.8rem;
 		background: var(--color-gray-100);
-		border: 1px solid var(--color-gray-300);
-		border-radius: 4px;
-		padding: 1rem;
+		padding: 16rem;
 		overflow-x: scroll;
+		font-size: var(--14px);
 	}
 </style>

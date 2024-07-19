@@ -18,7 +18,7 @@
 	--z-top: 100;
 	--z-overlay: 1000;
 
-	--color-fg: var(--color-gray-900);
+	--color-fg: var(--color-black);
 	--color-bg: var(--color-white);
 
 	/* "1" second duration */
