@@ -7,7 +7,7 @@
 <div id="process" class:visible={$side === "left"}>
 	<div class="switcher">
 		<button on:click={() => ($side = "right")}
-			>Read Claude's Story &rarr;
+			>Read Claude’s story &rarr;
 		</button>
 	</div>
 	<article>
