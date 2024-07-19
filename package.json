@@ -49,6 +49,7 @@
 	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11",
 	"dependencies": {
 		"gac": "^1.0.2",
+		"rough-notation": "^0.5.1",
 		"snarkdown": "^2.0.0"
 	}
 }

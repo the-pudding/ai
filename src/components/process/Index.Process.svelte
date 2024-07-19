@@ -2,9 +2,31 @@
 	import Chat from "$components/process/Chat.svelte";
 	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
+	import { annotate } from "rough-notation";
+	import { onMount } from "svelte";
+	import inView from "$actions/inView.js";
 
-	console.log(copy.process.filter((d) => d.type === "reaction"));
-	console.log(copy.process.filter((d) => d.type === "heading"));
+	let annotation;
+
+	const onEnter = () => {
+		if (annotation) annotation.show();
+	};
+	const onExit = () => {
+		if (annotation) annotation.hide();
+	};
+
+	onMount(() => {
+		const finalGrade = document.querySelector(
+			"table tr:last-child td:last-child"
+		);
+		annotation = annotate(finalGrade, {
+			type: "circle",
+			animate: true,
+			animationDuration: 1000,
+			color: "var(--color-ai-orange-og)"
+		});
+		annotation.show();
+	});
 </script>
 
 <div id="process" class:visible={$side === "left"}>
@@ -65,15 +87,23 @@
 					</div>
 				</div>
 			{:else if type === "report-card"}
-				<h2><strong>{value.title}</strong></h2>
-				<table>
-					{#each value.sections as { id, text, grade }}
-						<tr>
-							<td><a href="#{id}">{text}</a></td>
-							<td class="grade"><strong>{grade}</strong></td>
-						</tr>
-					{/each}
-				</table>
+				<div use:inView on:enter={onEnter} on:exit={onExit}>
+					<h2><strong>{value.title}</strong></h2>
+					<table>
+						{#each value.sections as { id, text, grade }}
+							<tr>
+								<td>
+									{#if id === "overall"}
+										{text}
+									{:else}
+										<a href="#{id}">{text}</a>
+									{/if}
+								</td>
+								<td class="grade"><strong>{grade}</strong></td>
+							</tr>
+						{/each}
+					</table>
+				</div>
 			{:else if type === "video"}
 				<figure>
 					<!-- svelte-ignore a11y-media-has-caption -->
@@ -139,12 +169,16 @@
 		margin: 32px 0;
 	}
 
-	tr {
-		border-left: 4px solid var(--color-primary);
+	table {
+		table-layout: auto;
 	}
+
 	td {
 		padding: 12px 0;
-		padding-left: 16px;
+		padding-left: 32px;
+	}
+	tr:last-child td:first-child {
+		font-weight: bold;
 	}
 	td.grade {
 		font-size: var(--28px);
