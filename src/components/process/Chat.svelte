@@ -93,11 +93,11 @@
 	}
 
 	details.prompt {
-		background: var(--color-gray-100);
+		background: var(--color-ai-green);
 	}
 
 	details.response {
-		background: var(--color-gray-300);
+		background: var(--color-ai-orange);
 	}
 
 	summary {
@@ -128,7 +128,7 @@
 	}
 
 	pre {
-		background: var(--color-gray-100);
+		background: var(--color-ai-orange-og);
 		padding: 16rem;
 		overflow-x: scroll;
 		font-size: var(--14px);

@@ -19,11 +19,9 @@
 				<p>{@html value}</p>
 			{:else if type === "heading"}
 				<h2 id={value.id}><strong>{@html value.text}</strong></h2>
-			{:else if type === "callout"}
-				<div class="callout" on:click={() => ($side = "right")}>
-					{#each value as text}
-						<p>{@html text.value}</p>
-					{/each}
+			{:else if type === "cta"}
+				<div class="cta">
+					<p>{@html value}</p>
 				</div>
 			{:else if type === "ul"}
 				<ul>
@@ -41,7 +39,7 @@
 				<Chat {...value} />
 			{:else if type === "preview"}
 				<div class="preview">
-					<h3>Our grade: <strong>{value.grade}</strong></h3>
+					<h3><strong>Our grade: {value.grade}</strong></h3>
 					<span class="summary">{value.summary}</span>
 				</div>
 			{:else if type === "figure"}
@@ -85,6 +83,7 @@
 	#process {
 		width: 90vw;
 		position: relative;
+		background: var(--color-bg);
 	}
 
 	article {
@@ -129,38 +128,39 @@
 		margin: 32px 0;
 	}
 
-	.callout {
-		background: var(--color-gray-100);
+	.cta {
+		background: var(--color-primary);
+		color: var(--color-bg);
 		padding: 16px;
 		margin: 32px 0;
 		cursor: pointer;
 	}
 
-	.callout p {
+	.cta p {
 		margin: 0;
-	}
-
-	.callout:hover {
-		background: var(--color-gray-300);
 	}
 
 	.reaction {
 		margin-top: 32px;
-		background: var(--color-gray-100);
+		background: var(--color-primary);
+		color: var(--color-bg);
 		padding: 16px;
 	}
 
 	.reaction h3 {
-		margin-top: 0;
+		margin: 0;
+		margin-bottom: 8px;
 	}
 
 	.preview {
-		background: var(--color-gray-100);
+		background: var(--color-primary);
+		color: var(--color-bg);
 		padding: 16px;
 	}
 
 	.preview h3 {
-		margin-top: 0;
+		margin: 0;
+		margin-bottom: 8px;
 	}
 
 	figure {
@@ -169,11 +169,10 @@
 
 	figure img,
 	figure video {
-		border: 2px solid var(--color-fg);
+		border: 4px solid var(--color-fg);
 	}
 
 	figcaption {
-		color: var(--color-gray-600);
 		margin-top: 6px;
 		line-height: 1.2;
 		font-size: var(--12px);
@@ -189,27 +188,25 @@
 		margin: 0;
 	}
 	:global(p code) {
-		background: var(--color-gray-100);
-		border: 1px solid var(--color-gray-300);
-		border-radius: 4px;
-		padding: 0 4px;
-		font-size: 0.9rem;
-		color: #c3617a;
+		background: var(--color-ai-orange-og);
+		padding: 2px 6px;
+		font-size: var(--16px);
 	}
 
 	:global(#process a) {
-		color: var(--color-fg);
+		color: var(--color-primary);
 		text-decoration: none;
-		border-bottom: 1px solid var(--color-fg);
+		border-bottom: 2px solid var(--color-primary);
 	}
 
 	:global(#process a:hover) {
-		color: var(--color-gray-600);
-		border-bottom: 1px solid var(--color-gray-600);
+		color: var(--color-fg);
+		border-bottom: 2px solid var(--color-fg);
 	}
 
 	.note {
-		background: var(--color-gray-100);
+		background: var(--color-primary);
+		color: var(--color-bg);
 		padding: 16px;
 	}
 

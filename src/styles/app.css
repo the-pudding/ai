@@ -19,7 +19,12 @@
 	--z-overlay: 1000;
 
 	--color-fg: var(--color-black);
-	--color-bg: var(--color-white);
+	--color-bg: var(--color-ai-cream);
+	--color-pudding: var(--color-ai-green);
+	--color-claude: var(--color-ai-orange);
+	--color-primary: var(--color-ai-blue);
+	--color-mark: var(--color-primary);
+
 
 	/* "1" second duration */
 	--1s: 1ms;
