@@ -142,9 +142,6 @@
 
 	.reaction {
 		margin-top: 32px;
-		background: var(--color-primary);
-		color: var(--color-bg);
-		padding: 16px;
 	}
 
 	.reaction h3 {
@@ -153,9 +150,10 @@
 	}
 
 	.preview {
-		background: var(--color-primary);
-		color: var(--color-bg);
-		padding: 16px;
+		/* background: var(--color-primary);
+		color: var(--color-bg); */
+		border-left: 4px solid var(--color-fg);
+		padding: 0 16px;
 	}
 
 	.preview h3 {
@@ -205,9 +203,8 @@
 	}
 
 	.note {
-		background: var(--color-primary);
-		color: var(--color-bg);
-		padding: 16px;
+		border-left: 4px solid var(--color-fg);
+		padding: 0 16px;
 	}
 
 	.switcher {

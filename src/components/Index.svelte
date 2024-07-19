@@ -8,8 +8,10 @@
 
 	function onKeyDown(e) {
 		const dir = e.key.replace("Arrow", "").toLowerCase();
-		$side = dir;
-		switchText = dir === "left" ? "Read Our Process" : "Read Claude's Story";
+		if (dir === "left" || dir === "right") {
+			$side = dir;
+			switchText = dir === "left" ? "Read Our Process" : "Read Claude's Story";
+		}
 	}
 </script>
 
