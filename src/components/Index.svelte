@@ -1,15 +1,19 @@
 <script>
 	import Footer from "$components/process/Footer.svelte";
-	import Tap from "$components/helpers/Tap.svelte";
 	import Product from "$components/product/Index.Product.svelte";
 	import Process from "$components/process/Index.Process.svelte";
 	import { side } from "$stores/misc.js";
 
-	const onTap = (e) => {
-		$side = e.detail;
-	};
+	let switchText = "See Process";
+
+	function onKeyDown(e) {
+		const dir = e.key.replace("Arrow", "").toLowerCase();
+		$side = dir;
+		switchText = dir === "left" ? "Read Our Process" : "Read Claude's Story";
+	}
 </script>
 
+<svelte:window on:keydown={onKeyDown} />
 <div class="outer">
 	<div
 		class="inner"
@@ -22,18 +26,11 @@
 
 <Footer></Footer>
 
-<Tap
-	full={true}
-	size={$side === "left" ? ["90vw", "10vw"] : ["10vw", "90vw"]}
-	enableKeyboard={true}
-	marginTop={0}
-	on:tap={onTap}
-/>
-
 <style>
 	.outer {
-		overflow: hidden;
+		overflow-x: clip;
 	}
+
 	.inner {
 		display: flex;
 		width: 180vw;

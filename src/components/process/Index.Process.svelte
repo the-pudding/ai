@@ -5,77 +5,89 @@
 </script>
 
 <div id="process" class:visible={$side === "left"}>
-	<h1><strong>{copy.hed}</strong></h1>
-	<div class="byline">{@html copy.byline}</div>
+	<div class="switcher">
+		<button on:click={() => ($side = "right")}
+			>Read Claude's Story &rarr;
+		</button>
+	</div>
+	<article>
+		<h1><strong>{copy.hed}</strong></h1>
+		<div class="byline">{@html copy.byline}</div>
 
-	{#each copy.process as { type, value }}
-		{#if type === "text"}
-			<p>{@html value}</p>
-		{:else if type === "heading"}
-			<h2 id={value.id}><strong>{@html value.text}</strong></h2>
-		{:else if type === "callout"}
-			<div class="callout" on:click={() => ($side = "right")}>
-				{#each value as text}
-					<p>{@html text.value}</p>
-				{/each}
-			</div>
-		{:else if type === "ul"}
-			<ul>
-				{#each value as item}
-					<li>{@html item}</li>
-				{/each}
-			</ul>
-		{:else if type === "ol"}
-			<ol>
-				{#each value as item}
-					<li><a href="#{item.id}">{@html item.text}</a></li>
-				{/each}
-			</ol>
-		{:else if type === "chat"}
-			<Chat {...value} />
-		{:else if type === "preview"}
-			<div class="preview">
-				<h3>Our grade: <strong>{value.grade}</strong></h3>
-				<span class="summary">{value.summary}</span>
-			</div>
-		{:else if type === "figure"}
-			<figure>
-				<img src="assets/img/{value.src}" alt={value.alt} />
-				<figcaption>{value.caption}</figcaption>
-			</figure>
-		{:else if type === "figure-grid"}
-			<div class="grid">
-				{#each value.figures as { src, alt, caption }}
-					<figure>
-						<img src="assets/img/{src}" {alt} />
-						<figcaption>{caption}</figcaption>
-					</figure>
-				{/each}
-			</div>
-		{:else if type === "reaction"}
-			<div class="reaction">
-				<h3><strong>Reflection</strong></h3>
-				{#each value as d}
-					<p>{@html d.value}</p>
-				{/each}
-			</div>
-		{:else if type === "video"}
-			<figure>
-				<!-- svelte-ignore a11y-media-has-caption -->
-				<video preload autoplay="true" loop muted>
-					<source src="assets/{value.src}" type="video/mp4" />
-					Your browser does not support the video tag.
-				</video>
-				<figcaption><small>{value.caption}</small></figcaption>
-			</figure>
-		{:else if type === "editorNote"}
-			<p class="note"><strong>Editor’s Note:</strong> {value}</p>
-		{/if}
-	{/each}
+		{#each copy.process as { type, value }}
+			{#if type === "text"}
+				<p>{@html value}</p>
+			{:else if type === "heading"}
+				<h2 id={value.id}><strong>{@html value.text}</strong></h2>
+			{:else if type === "callout"}
+				<div class="callout" on:click={() => ($side = "right")}>
+					{#each value as text}
+						<p>{@html text.value}</p>
+					{/each}
+				</div>
+			{:else if type === "ul"}
+				<ul>
+					{#each value as item}
+						<li>{@html item}</li>
+					{/each}
+				</ul>
+			{:else if type === "ol"}
+				<ol>
+					{#each value as item}
+						<li><a href="#{item.id}">{@html item.text}</a></li>
+					{/each}
+				</ol>
+			{:else if type === "chat"}
+				<Chat {...value} />
+			{:else if type === "preview"}
+				<div class="preview">
+					<h3>Our grade: <strong>{value.grade}</strong></h3>
+					<span class="summary">{value.summary}</span>
+				</div>
+			{:else if type === "figure"}
+				<figure>
+					<img src="assets/img/{value.src}" alt={value.alt} />
+					<figcaption>{value.caption}</figcaption>
+				</figure>
+			{:else if type === "figure-grid"}
+				<div class="grid">
+					{#each value.figures as { src, alt, caption }}
+						<figure>
+							<img src="assets/img/{src}" {alt} />
+							<figcaption>{caption}</figcaption>
+						</figure>
+					{/each}
+				</div>
+			{:else if type === "reaction"}
+				<div class="reaction">
+					<h3><strong>Reflection</strong></h3>
+					{#each value as d}
+						<p>{@html d.value}</p>
+					{/each}
+				</div>
+			{:else if type === "video"}
+				<figure>
+					<!-- svelte-ignore a11y-media-has-caption -->
+					<video preload autoplay="true" loop muted>
+						<source src="assets/{value.src}" type="video/mp4" />
+						Your browser does not support the video tag.
+					</video>
+					<figcaption><small>{value.caption}</small></figcaption>
+				</figure>
+			{:else if type === "editorNote"}
+				<p class="note"><strong>Editor’s Note:</strong> {value}</p>
+			{/if}
+		{/each}
+	</article>
 </div>
 
 <style>
 	#process {
+		width: 90vw;
+		position: relative;
+	}
+
+	article {
 		width: 100%;
 		max-width: calc(40rem + 32px);
 		margin: 32px auto;
@@ -199,5 +211,28 @@
 	.note {
 		background: var(--color-gray-100);
 		padding: 16px;
+	}
+
+	.switcher {
+		position: sticky;
+		top: 50%;
+		right: 0;
+		text-align: right;
+		opacity: 0;
+		transition: opacity calc(var(--1s) * 0.5);
+		pointer-events: none;
+	}
+
+	.visible .switcher {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.switcher button {
+		font-size: var(--18px);
+		padding: 16px;
+		background: #1d1f21;
+		color: var(--color-bg);
+		transform: translateX(calc(10vw - 16px));
 	}
 </style>

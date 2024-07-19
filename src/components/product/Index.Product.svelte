@@ -12,6 +12,10 @@
 </script>
 
 <div id="product" class:visible={$side === "right"}>
+	<div class="switcher">
+		<button on:click={() => ($side = "left")}>&larr; See the process</button>
+	</div>
+
 	<article>
 		<Header />
 
@@ -157,5 +161,27 @@
 		:global(#product h2) {
 			font-size: 1.5rem;
 		}
+	}
+
+	.switcher {
+		position: sticky;
+		top: 50%;
+		left: 0;
+		opacity: 0;
+		transition: opacity calc(var(--1s) * 0.5);
+		pointer-events: none;
+	}
+
+	.visible .switcher {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.switcher button {
+		padding: 16px;
+		font-size: var(--18px);
+		background: var(--color-bg);
+		color: var(--color-fg);
+		transform: translateX(-10vw);
 	}
 </style>
