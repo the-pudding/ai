@@ -87,7 +87,7 @@
 					</div>
 				</div>
 			{:else if type === "report-card"}
-				<div use:inView on:enter={onEnter} on:exit={onExit}>
+				<div class="report" use:inView on:enter={onEnter} on:exit={onExit}>
 					<h2><strong>{value.title}</strong></h2>
 					<table>
 						{#each value.sections as { id, text, grade }}
@@ -174,14 +174,18 @@
 	}
 
 	td {
-		padding: 12px 0;
-		padding-left: 32px;
+		padding: 16px;
+		vertical-align: center;
+		line-height: 1;
 	}
+
 	tr:last-child td:first-child {
 		font-weight: bold;
 	}
+
 	td.grade {
-		font-size: var(--28px);
+		font-size: var(--32px);
+		width: 32px;
 	}
 
 	.cta {
@@ -212,6 +216,11 @@
 		font-size: var(--14px);
 	}
 
+	.report table {
+		border-left: 4px solid var(--color-primary);
+		padding: 0 16px;
+	}
+
 	figure {
 		margin: 32px 0;
 	}
@@ -237,7 +246,7 @@
 		margin: 0;
 	}
 	:global(p code) {
-		background: var(--color-ai-orange-og);
+		background: var(--color-claude);
 		padding: 2px 6px;
 		font-size: var(--16px);
 	}
@@ -276,7 +285,7 @@
 	.switcher button {
 		font-size: var(--18px);
 		padding: 16px;
-		background: #1d1f21;
+		background: var(--color-claude-bg);
 		color: var(--color-bg);
 		transform: translateX(calc(10vw - 16px));
 	}

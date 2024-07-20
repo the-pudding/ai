@@ -4,8 +4,6 @@
 	import Process from "$components/process/Index.Process.svelte";
 	import { side } from "$stores/misc.js";
 
-	let switchText = "See Process";
-
 	function onKeyDown(e) {
 		const dir = e.key.replace("Arrow", "").toLowerCase();
 		if (dir === "left" || dir === "right") {
