@@ -239,7 +239,7 @@
 	figcaption {
 		margin-top: 6px;
 		line-height: 1.2;
-		font-size: var(--12px);
+		font-size: var(--14px);
 	}
 
 	.grid {
