@@ -1,4 +1,5 @@
 <script>
+	import { createEventDispatcher } from "svelte";
 	import Header from "$components/product/Header.svelte";
 	import Introduction from "$components/product/Introduction.svelte";
 	import NegativeSongsChart from "$components/product/NegativeSongsChart.svelte";
@@ -8,15 +9,19 @@
 	import Conclusion from "$components/product/Conclusion.svelte";
 	import Methodology from "$components/product/Methodology.svelte";
 	import Footer from "$components/product/Footer.svelte";
-	import { side } from "$stores/misc.js";
+	import { side, productHeight } from "$stores/misc.js";
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div id="product" class:visible={$side === "right"}>
 	<div class="switcher">
-		<button on:click={() => ($side = "left")}>&larr; See the process</button>
+		<button on:click={() => dispatch("switch", "left")}
+			>&larr; See the process</button
+		>
 	</div>
 
-	<article>
+	<article bind:offsetHeight={$productHeight}>
 		<Header />
 
 		<Introduction />

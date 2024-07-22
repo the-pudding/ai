@@ -2,25 +2,43 @@
 	import Footer from "$components/process/Footer.svelte";
 	import Product from "$components/product/Index.Product.svelte";
 	import Process from "$components/process/Index.Process.svelte";
-	import { side } from "$stores/misc.js";
+	import { side, scrollY, prev, productHeight } from "$stores/misc.js";
+
+	function onSwitch({ detail }) {
+		const p = $prev[detail];
+		window.scrollTo(0, p);
+		$side = detail;
+	}
 
 	function onKeyDown(e) {
 		const dir = e.key.replace("Arrow", "").toLowerCase();
 		if (dir === "left" || dir === "right") {
-			$side = dir;
-			switchText = dir === "left" ? "Read Our Process" : "Read Claude's Story";
+			onSwitch({ detail: dir });
+		}
+	}
+
+	function onScroll() {
+		// prevent from going past $productHeight
+		if ($side === "right") {
+			if ($scrollY > $productHeight) {
+				window.scrollTo(0, $productHeight);
+			}
 		}
 	}
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window
+	on:keydown={onKeyDown}
+	bind:scrollY={$scrollY}
+	on:scroll={onScroll}
+/>
 <div class="outer">
 	<div
 		class="inner"
 		style:transform={`translate(${$side === "left" ? 0 : -80}vw, 0)`}
 	>
-		<Process />
-		<Product />
+		<Process on:switch={onSwitch} />
+		<Product on:switch={onSwitch} />
 	</div>
 </div>
 

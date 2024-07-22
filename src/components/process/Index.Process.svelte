@@ -1,4 +1,5 @@
 <script>
+	import { createEventDispatcher } from "svelte";
 	import Chat from "$components/process/Chat.svelte";
 	import Header from "$components/process/Header.svelte";
 	import { side } from "$stores/misc.js";
@@ -7,6 +8,7 @@
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
 
+	const dispatch = createEventDispatcher();
 	let annotation;
 
 	const onEnter = () => {
@@ -32,8 +34,8 @@
 
 <div id="process" class:visible={$side === "left"}>
 	<div class="switcher">
-		<button on:click={() => ($side = "right")}
-			>Read Claude’s story &rarr;
+		<button on:click={() => dispatch("switch", "right")}>
+			Read Claude’s story &rarr;
 		</button>
 	</div>
 
@@ -128,6 +130,7 @@
 		width: 90vw;
 		position: relative;
 		background: var(--color-bg);
+		padding-bottom: 64px;
 	}
 
 	article {
