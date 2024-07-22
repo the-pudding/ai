@@ -1,5 +1,6 @@
 <script>
 	import Chat from "$components/process/Chat.svelte";
+	import Header from "$components/process/Header.svelte";
 	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 	import { annotate } from "rough-notation";
@@ -35,6 +36,8 @@
 			>Read Claude’s story &rarr;
 		</button>
 	</div>
+
+	<Header></Header>
 	<article>
 		<h1><strong>{copy.hed}</strong></h1>
 		<div class="byline">{@html copy.byline}</div>
