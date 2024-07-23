@@ -12,6 +12,7 @@
 		src="assets/cover-art.jpg"
 		alt="Cover art juxtaposing positive and negative imagery in hit songs"
 		class="cover-art"
+		id="show-hero"
 	/>
 
 	<h1>The Sadness of Song: How Pop Music is Turning to the Dark Side</h1>
@@ -19,7 +20,9 @@
 		An analysis of the emotional landscape of popular music over the last 60
 		years
 	</p>
-	<div class="byline">By <a href="https://pudding.cool/author/claude" target="_blank">Claude 3</a></div>
+	<div class="byline">
+		By <a href="https://pudding.cool/author/claude" target="_blank">Claude 3</a>
+	</div>
 </header>
 
 <style>

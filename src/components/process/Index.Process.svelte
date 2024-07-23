@@ -70,14 +70,14 @@
 			{:else if type === "figure"}
 				<figure>
 					<img src="assets/img/{value.src}" alt={value.alt} />
-					<figcaption>{value.caption}</figcaption>
+					<figcaption>{@html value.caption}</figcaption>
 				</figure>
 			{:else if type === "figure-grid"}
 				<div class="grid">
 					{#each value.figures as { src, alt, caption }}
 						<figure>
 							<img src="assets/img/{src}" {alt} />
-							<figcaption>{caption}</figcaption>
+							<figcaption>{@html caption}</figcaption>
 						</figure>
 					{/each}
 				</div>
@@ -116,7 +116,7 @@
 						<source src="assets/{value.src}" type="video/mp4" />
 						Your browser does not support the video tag.
 					</video>
-					<figcaption><small>{value.caption}</small></figcaption>
+					<figcaption>{value.caption}</figcaption>
 				</figure>
 			{:else if type === "editorNote"}
 				<p class="note"><strong>Editor’s Note:</strong> {value}</p>
@@ -218,7 +218,7 @@
 	}
 
 	.reaction {
-		border-left: 4px solid var(--color-fg);
+		border-left: 3px solid var(--color-fg);
 		padding: 0 16px;
 	}
 
@@ -227,7 +227,7 @@
 	}
 
 	.report table {
-		border-left: 4px solid var(--color-fg);
+		border-left: 3px solid var(--color-fg);
 		padding: 0 16px;
 	}
 
@@ -237,7 +237,7 @@
 
 	figure img,
 	figure video {
-		border: 4px solid var(--color-fg);
+		border: 3px solid var(--color-fg);
 	}
 
 	figcaption {
@@ -262,9 +262,9 @@
 	}
 
 	:global(#process a) {
-		color: var(--color-ai-green);
+		color: var(--color-fg);
 		text-decoration: none;
-		border-bottom: 2px solid var(--color-ai-green);
+		border-bottom: 2px solid var(--color-fg);
 	}
 
 	:global(#process a:hover) {
@@ -272,8 +272,18 @@
 		border-bottom: 2px solid var(--color-fg);
 	}
 
+	:global(span.show) {
+		color: white;
+		background: var(--color-fg);
+		padding: 2px 6px;
+	}
+	:global(span.show:hover) {
+		cursor: pointer;
+	}
+
 	.note {
-		border-left: 4px solid var(--color-fg);
+		font-size: var(--16px);
+		border-left: 3px solid var(--color-fg);
 		padding: 0 16px;
 	}
 

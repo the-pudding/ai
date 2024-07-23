@@ -27,7 +27,7 @@
 	music.
 </p>
 
-<p>
+<p id="show-gh-repo">
 	You can explore the full datasets and code used in this analysis on our
 	<a href="https://github.com/your-repo-here" target="_blank">Github repo</a>.
 </p>

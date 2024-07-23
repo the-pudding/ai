@@ -7,13 +7,15 @@ const sides = {
 export let side = writable("left");
 export let scrollY = writable(0);
 
-export let prev = derived(
-	[side, scrollY],
-	([$side, $scrollY], set) => {
-		sides[$side] = $scrollY;
-		set(sides);
-	},
-	sides
-);
+// export let prev = derived(
+// 	[side, scrollY],
+// 	([$side, $scrollY], set) => {
+// 		sides[$side] = $scrollY;
+// 		set(sides);
+// 	},
+// 	sides
+// );
+
+export let prev = writable(sides);
 
 export let productHeight = writable(0);

@@ -61,7 +61,12 @@
 	}
 </script>
 
-<div class="chart-container" bind:this={chartRef} on:resize={handleResize}>
+<div
+	class="chart-container"
+	bind:this={chartRef}
+	on:resize={handleResize}
+	id="show-line-chart"
+>
 	{#if data.length > 0}
 		<h3 class="chart-title">Percentage of Negative Songs Over Time</h3>
 		<svg {width} {height}>
