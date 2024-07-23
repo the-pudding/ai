@@ -252,7 +252,7 @@
 		margin: 0;
 	}
 	:global(p code) {
-		background: var(--color-claude);
+		background: var(--color-ai-orange-og);
 		padding: 2px 6px;
 		font-size: var(--16px);
 	}
@@ -285,7 +285,6 @@
 
 	.visible .switcher {
 		opacity: 1;
-		pointer-events: auto;
 	}
 
 	.switcher button {
@@ -294,5 +293,6 @@
 		background: var(--color-claude-bg);
 		color: var(--color-bg);
 		transform: translateX(calc(10vw - 16px));
+		pointer-events: auto;
 	}
 </style>
