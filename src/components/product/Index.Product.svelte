@@ -188,5 +188,10 @@
 		background: var(--color-bg);
 		color: var(--color-fg);
 		transform: translateX(-10vw);
+		transition: transform calc(var(--1s) * 0.2);
+	}
+
+	.switcher button:hover {
+		transform: translateX(calc(-10vw - 6px));
 	}
 </style>

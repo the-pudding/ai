@@ -298,6 +298,11 @@
 		color: var(--color-bg);
 		transform: translateX(calc(10vw - 16px));
 		pointer-events: auto;
+		transition: transform calc(var(--1s) * 0.2);
+	}
+
+	.switcher button:hover {
+		transform: translateX(calc(10vw - 6px));
 	}
 
 	.footnote {
