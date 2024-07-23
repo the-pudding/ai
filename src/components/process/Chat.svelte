@@ -1,6 +1,5 @@
 <script>
 	import Code from "$components/process/Chat.Code.svelte";
-	import snarkdown from "snarkdown";
 
 	export let prompt;
 	export let response;
@@ -23,8 +22,8 @@
 				</p></summary
 			>
 			<div class="inner">
-				{#each prompt as { type, value }}
-					<div>{@html snarkdown(value)}</div>
+				{#each prompt as { value }}
+					<p class="text">{value}</p>
 				{/each}
 			</div>
 		</details>
@@ -41,7 +40,7 @@
 			<div class="inner">
 				{#each response as { type, value }}
 					{#if type === "text"}
-						<div>{@html snarkdown(value)}</div>
+						<p class="text">{value}</p>
 					{:else if type === "code"}
 						<Code id={value} />
 					{/if}
@@ -101,5 +100,15 @@
 
 	summary .arrow {
 		margin-right: 16px;
+	}
+
+	.chat p.text {
+		margin: 12px 0;
+	}
+	.chat p.text:first-child {
+		margin-top: 0;
+	}
+	.chat p.text:last-child {
+		margin-bottom: 0;
 	}
 </style>

@@ -255,7 +255,7 @@
 	.grid figure {
 		margin: 0;
 	}
-	:global(p code) {
+	:global(code:not(pre code)) {
 		background: var(--color-ai-orange-og);
 		padding: 2px 6px;
 		font-size: var(--16px);
