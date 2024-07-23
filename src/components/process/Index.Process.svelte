@@ -185,7 +185,7 @@
 	}
 
 	.cta {
-		background: var(--color-primary);
+		background: var(--color-fg);
 		color: var(--color-bg);
 		padding: 16px;
 		margin: 32px 0;
