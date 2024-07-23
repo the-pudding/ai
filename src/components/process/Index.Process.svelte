@@ -120,6 +120,10 @@
 				</figure>
 			{:else if type === "editorNote"}
 				<p class="note"><strong>Editor’s Note:</strong> {value}</p>
+			{:else if type === "footnote"}
+				{#each value as { value }}
+					<p class="footnote">{@html value}</p>
+				{/each}
 			{/if}
 		{/each}
 	</article>
@@ -214,7 +218,7 @@
 	}
 
 	.reaction {
-		border-left: 4px solid var(--color-primary);
+		border-left: 4px solid var(--color-fg);
 		padding: 0 16px;
 	}
 
@@ -223,7 +227,7 @@
 	}
 
 	.report table {
-		border-left: 4px solid var(--color-primary);
+		border-left: 4px solid var(--color-fg);
 		padding: 0 16px;
 	}
 
@@ -258,9 +262,9 @@
 	}
 
 	:global(#process a) {
-		color: var(--color-primary);
+		color: var(--color-ai-green);
 		text-decoration: none;
-		border-bottom: 2px solid var(--color-primary);
+		border-bottom: 2px solid var(--color-ai-green);
 	}
 
 	:global(#process a:hover) {
@@ -294,5 +298,10 @@
 		color: var(--color-bg);
 		transform: translateX(calc(10vw - 16px));
 		pointer-events: auto;
+	}
+
+	.footnote {
+		font-size: var(--16px);
+		margin-top: 4rem;
 	}
 </style>
