@@ -1,11 +1,14 @@
 <script>
+	import { createEventDispatcher } from "svelte";
 	import Chat from "$components/process/Chat.svelte";
+	import Header from "$components/process/Header.svelte";
 	import { side } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 	import { annotate } from "rough-notation";
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
 
+	const dispatch = createEventDispatcher();
 	let annotation;
 
 	const onEnter = () => {
@@ -31,10 +34,12 @@
 
 <div id="process" class:visible={$side === "left"}>
 	<div class="switcher">
-		<button on:click={() => ($side = "right")}
-			>Read Claude’s story &rarr;
+		<button on:click={() => dispatch("switch", "right")}>
+			Read Claude’s story &rarr;
 		</button>
 	</div>
+
+	<Header></Header>
 	<article>
 		<h1><strong>{copy.hed}</strong></h1>
 		<div class="byline">{@html copy.byline}</div>
@@ -87,7 +92,7 @@
 					</div>
 				</div>
 			{:else if type === "report-card"}
-				<div use:inView on:enter={onEnter} on:exit={onExit}>
+				<div class="report" use:inView on:enter={onEnter} on:exit={onExit}>
 					<h2><strong>{value.title}</strong></h2>
 					<table>
 						{#each value.sections as { id, text, grade }}
@@ -125,6 +130,7 @@
 		width: 90vw;
 		position: relative;
 		background: var(--color-bg);
+		padding-bottom: 64px;
 	}
 
 	article {
@@ -174,14 +180,18 @@
 	}
 
 	td {
-		padding: 12px 0;
-		padding-left: 32px;
+		padding: 16px;
+		vertical-align: center;
+		line-height: 1;
 	}
+
 	tr:last-child td:first-child {
 		font-weight: bold;
 	}
+
 	td.grade {
-		font-size: var(--28px);
+		font-size: var(--32px);
+		width: 32px;
 	}
 
 	.cta {
@@ -212,6 +222,11 @@
 		font-size: var(--14px);
 	}
 
+	.report table {
+		border-left: 4px solid var(--color-primary);
+		padding: 0 16px;
+	}
+
 	figure {
 		margin: 32px 0;
 	}
@@ -224,7 +239,7 @@
 	figcaption {
 		margin-top: 6px;
 		line-height: 1.2;
-		font-size: var(--12px);
+		font-size: var(--14px);
 	}
 
 	.grid {
@@ -237,7 +252,7 @@
 		margin: 0;
 	}
 	:global(p code) {
-		background: var(--color-ai-orange-og);
+		background: var(--color-claude);
 		padding: 2px 6px;
 		font-size: var(--16px);
 	}
@@ -276,7 +291,7 @@
 	.switcher button {
 		font-size: var(--18px);
 		padding: 16px;
-		background: #1d1f21;
+		background: var(--color-claude-bg);
 		color: var(--color-bg);
 		transform: translateX(calc(10vw - 16px));
 	}

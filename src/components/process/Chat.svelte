@@ -55,7 +55,7 @@
 	.chat {
 		font-family: var(--font-mono);
 		line-height: 1.2;
-		margin: 32px 0;
+		margin: 48px 0;
 	}
 
 	.inner {

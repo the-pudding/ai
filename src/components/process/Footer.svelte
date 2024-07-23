@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
-	import wordmark from "$svg/wordmark.svg";
+	import wordmark from "$svg/wordmark-shadow.svg";
 
 	let localURL;
 	let stories = [];
@@ -79,7 +79,6 @@
 		color: var(--color-bg);
 		font-family: var(--font-sans);
 		padding: 3em 1em;
-		margin-top: 5rem;
 	}
 
 	a,
