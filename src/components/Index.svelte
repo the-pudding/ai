@@ -20,10 +20,10 @@
 	};
 
 	onMount(() => {
-		const spans = document.querySelectorAll("span.show");
-		spans.forEach((span) => {
-			span.addEventListener("click", () => {
-				const id = span.getAttribute("data-id");
+		const showButtons = document.querySelectorAll("button.show");
+		showButtons.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const id = btn.getAttribute("data-id");
 				const goTo = document.getElementById(id);
 				onSwitch({ detail: "right" }, goTo);
 			});

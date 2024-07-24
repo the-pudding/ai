@@ -117,7 +117,7 @@
 	});
 </script>
 
-<div class="chart-container" id="show-multiples">
+<div class="chart-container" id="multiples">
 	{#if data.length > 0}
 		<h3 class="chart-title">Average Emotions in Songs Over Time</h3>
 		<div class="small-multiples">

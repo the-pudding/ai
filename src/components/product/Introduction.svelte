@@ -1,5 +1,5 @@
 <section class="introduction">
-	<p class="intro-text" id="show-intro">
+	<p class="intro-text" id="intro">
 		In 2017, Julia Michaels' hit song "Issues" took the pop world by storm. With
 		lyrics like:
 	</p>

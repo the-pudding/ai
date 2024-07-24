@@ -155,7 +155,7 @@
 	}
 </script>
 
-<div class="chart-container" bind:this={chartContainer} id="show-radar">
+<div class="chart-container" bind:this={chartContainer} id="radar">
 	<svg class="radar-chart">
 		<title>Artist Emotion Comparison</title>
 	</svg>

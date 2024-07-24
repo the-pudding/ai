@@ -62,10 +62,10 @@
 			{:else if type === "figure"}
 				<figure>
 					{#if value.showId}
-						<span class="show image" data-id={value.showId}>
+						<button class="show image" data-id={value.showId}>
 							<img src="assets/img/{value.src}" alt={value.alt} />
 							<p>Click to see the final product.</p>
-						</span>
+						</button>
 					{:else}
 						<img src="assets/img/{value.src}" alt={value.alt} />
 					{/if}
@@ -302,15 +302,12 @@
 		border-bottom: 2px solid var(--color-ai-green-dark);
 	}
 
-	:global(span.show) {
+	:global(button.show) {
+		font-family: var(--sans);
 		color: white;
 		background: var(--color-fg);
 		padding: 2px 6px;
 		white-space: nowrap;
-	}
-
-	:global(span.show:hover) {
-		cursor: pointer;
 	}
 
 	.note {

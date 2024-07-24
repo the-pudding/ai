@@ -163,7 +163,7 @@
 	}
 </script>
 
-<div class="chart-container" bind:this={chartContainer} id="show-scatterplot">
+<div class="chart-container" bind:this={chartContainer} id="scatterplot">
 	<svg id="chart" {width} {height}>
 		<title>Artist Sentiment Scores</title>
 	</svg>

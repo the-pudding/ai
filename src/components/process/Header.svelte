@@ -28,4 +28,8 @@
 	.wordmark a:hover {
 		background-color: transparent;
 	}
+
+	.wordmark:hover {
+		transform: rotate(0deg);
+	}
 </style>

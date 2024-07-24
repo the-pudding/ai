@@ -12,7 +12,7 @@
 		src="assets/cover-art.jpg"
 		alt="Cover art juxtaposing positive and negative imagery in hit songs"
 		class="cover-art"
-		id="show-hero"
+		id="hero"
 	/>
 
 	<h1>The Sadness of Song: How Pop Music is Turning to the Dark Side</h1>

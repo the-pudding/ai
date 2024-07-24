@@ -65,7 +65,7 @@
 	class="chart-container"
 	bind:this={chartRef}
 	on:resize={handleResize}
-	id="show-line-chart"
+	id="line-chart"
 >
 	{#if data.length > 0}
 		<h3 class="chart-title">Percentage of Negative Songs Over Time</h3>
