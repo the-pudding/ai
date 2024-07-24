@@ -61,7 +61,14 @@
 				<Chat {...value} />
 			{:else if type === "figure"}
 				<figure>
-					<img src="assets/img/{value.src}" alt={value.alt} />
+					{#if value.showId}
+						<span class="show image" data-id={value.showId}>
+							<img src="assets/img/{value.src}" alt={value.alt} />
+							<p>Click to see the final product.</p>
+						</span>
+					{:else}
+						<img src="assets/img/{value.src}" alt={value.alt} />
+					{/if}
 					<figcaption>{@html value.caption}</figcaption>
 				</figure>
 			{:else if type === "figure-grid"}
@@ -234,8 +241,39 @@
 
 	figcaption {
 		margin-top: 6px;
-		line-height: 1.2;
+		line-height: 1.4;
 		font-size: var(--14px);
+	}
+
+	.show.image {
+		position: relative;
+		background: none;
+		color: var(--color-fg);
+		padding: 0;
+		white-space: normal;
+	}
+
+	.show.image img,
+	.show.image p {
+		transition: opacity calc(var(--1s) * 0.2);
+	}
+
+	.show.image:hover img {
+		opacity: 0.4;
+	}
+
+	.show.image:hover p {
+		opacity: 1;
+	}
+
+	.show.image p {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		margin: 0;
+		opacity: 0;
 	}
 
 	.grid {
@@ -260,8 +298,8 @@
 	}
 
 	:global(#process a:hover) {
-		color: var(--color-fg);
-		border-bottom: 2px solid var(--color-fg);
+		color: var(--color-ai-green-dark);
+		border-bottom: 2px solid var(--color-ai-green-dark);
 	}
 
 	:global(span.show) {
@@ -270,6 +308,7 @@
 		padding: 2px 6px;
 		white-space: nowrap;
 	}
+
 	:global(span.show:hover) {
 		cursor: pointer;
 	}

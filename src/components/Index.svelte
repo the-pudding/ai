@@ -63,16 +63,19 @@
 	.outer {
 		overflow-x: hidden;
 	}
+
 	.inner {
 		display: flex;
 		height: 100vh;
 		transition: transform calc(var(--1s) * 0.5) ease-in-out;
 	}
+
 	.side {
 		width: 90vw;
 		overflow-y: scroll;
 		flex-shrink: 0;
 	}
+
 	.switcher {
 		position: fixed;
 		top: 50%;
@@ -80,6 +83,7 @@
 		z-index: 1000;
 		transform: translate(-50%, -50%);
 	}
+
 	.switcher button {
 		font-size: var(--18px);
 		padding: 16px;
@@ -89,6 +93,7 @@
 		white-space: nowrap;
 		transition: background calc(var(--1s) * 0.3);
 	}
+
 	.switcher button.right {
 		background: var(--color-bg);
 		color: var(--color-fg);
