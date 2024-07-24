@@ -1,5 +1,4 @@
 <script>
-	import { createEventDispatcher } from "svelte";
 	import Header from "$components/product/Header.svelte";
 	import Introduction from "$components/product/Introduction.svelte";
 	import NegativeSongsChart from "$components/product/NegativeSongsChart.svelte";
@@ -9,19 +8,10 @@
 	import Conclusion from "$components/product/Conclusion.svelte";
 	import Methodology from "$components/product/Methodology.svelte";
 	import Footer from "$components/product/Footer.svelte";
-	import { side, productHeight } from "$stores/misc.js";
-
-	const dispatch = createEventDispatcher();
 </script>
 
-<div id="product" class:visible={$side === "right"}>
-	<div class="switcher">
-		<button on:click={() => dispatch("switch", "left")}
-			>&larr; See the process</button
-		>
-	</div>
-
-	<article bind:offsetHeight={$productHeight}>
+<div id="product">
+	<article>
 		<Header />
 
 		<Introduction />
@@ -101,10 +91,9 @@
 
 <style>
 	#product {
-		width: 90vw;
+		width: 100%;
 		background: var(--background-color);
 	}
-
 	:global(#product) {
 		--background-color: #1d1f21;
 		--text-color: #e6e6e6;
@@ -166,32 +155,5 @@
 		:global(#product h2) {
 			font-size: 1.5rem;
 		}
-	}
-
-	.switcher {
-		position: sticky;
-		top: 50%;
-		left: 0;
-		opacity: 0;
-		transition: opacity calc(var(--1s) * 0.5);
-		pointer-events: none;
-	}
-
-	.visible .switcher {
-		opacity: 1;
-		pointer-events: auto;
-	}
-
-	.switcher button {
-		padding: 16px;
-		font-size: var(--18px);
-		background: var(--color-bg);
-		color: var(--color-fg);
-		transform: translateX(-10vw);
-		transition: transform calc(var(--1s) * 0.2);
-	}
-
-	.switcher button:hover {
-		transform: translateX(calc(-10vw - 6px));
 	}
 </style>

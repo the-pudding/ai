@@ -1,5 +1,4 @@
 <script>
-	import { createEventDispatcher } from "svelte";
 	import Chat from "$components/process/Chat.svelte";
 	import Header from "$components/process/Header.svelte";
 	import { side } from "$stores/misc.js";
@@ -8,7 +7,6 @@
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
 
-	const dispatch = createEventDispatcher();
 	let annotation;
 
 	const onEnter = () => {
@@ -32,13 +30,7 @@
 	});
 </script>
 
-<div id="process" class:visible={$side === "left"}>
-	<div class="switcher">
-		<button on:click={() => dispatch("switch", "right")}>
-			Read Claude’s story &rarr;
-		</button>
-	</div>
-
+<div id="process">
 	<Header></Header>
 	<article>
 		<h1><strong>{copy.hed}</strong></h1>
@@ -131,7 +123,7 @@
 
 <style>
 	#process {
-		width: 90vw;
+		width: 100%;
 		position: relative;
 		background: var(--color-bg);
 		padding-bottom: 64px;
@@ -276,6 +268,7 @@
 		color: white;
 		background: var(--color-fg);
 		padding: 2px 6px;
+		white-space: nowrap;
 	}
 	:global(span.show:hover) {
 		cursor: pointer;
@@ -285,34 +278,6 @@
 		font-size: var(--16px);
 		border-left: 3px solid var(--color-fg);
 		padding: 0 16px;
-	}
-
-	.switcher {
-		position: sticky;
-		top: 50%;
-		right: 0;
-		text-align: right;
-		opacity: 0;
-		transition: opacity calc(var(--1s) * 0.5);
-		pointer-events: none;
-	}
-
-	.visible .switcher {
-		opacity: 1;
-	}
-
-	.switcher button {
-		font-size: var(--18px);
-		padding: 16px;
-		background: var(--color-claude-bg);
-		color: var(--color-bg);
-		transform: translateX(calc(10vw - 16px));
-		pointer-events: auto;
-		transition: transform calc(var(--1s) * 0.2);
-	}
-
-	.switcher button:hover {
-		transform: translateX(calc(10vw - 6px));
 	}
 
 	.footnote {

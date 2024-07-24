@@ -2,22 +2,14 @@
 	import Footer from "$components/process/Footer.svelte";
 	import Product from "$components/product/Index.Product.svelte";
 	import Process from "$components/process/Index.Process.svelte";
-	import { side, scrollY, prev, productHeight } from "$stores/misc.js";
-	import { onMount, tick } from "svelte";
+	import { side } from "$stores/misc.js";
+	import { onMount } from "svelte";
 
 	const onSwitch = async ({ detail }, goTo) => {
-		const sideLeaving = detail === "left" ? "right" : "left";
-		$prev[sideLeaving] = $scrollY;
-
-		if (goTo) window.scroll(0, goTo);
-		else window.scrollTo(0, $prev[detail]);
-
-		// prevent $side from updating before $scrollY (so onScroll logic isn't triggeree)
-		await tick();
-
-		setTimeout(() => {
-			$side = detail;
-		}, 50);
+		if (goTo) {
+			goTo.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
+		$side = detail;
 	};
 
 	const onKeyDown = (e) => {
@@ -27,69 +19,78 @@
 		}
 	};
 
-	const onScroll = () => {
-		// prevent from going past $productHeight
-		if ($side === "right") {
-			if ($scrollY > $productHeight) {
-				window.scrollTo(0, $productHeight);
-			}
-		}
-	};
-
 	onMount(() => {
 		const spans = document.querySelectorAll("span.show");
 		spans.forEach((span) => {
 			span.addEventListener("click", () => {
 				const id = span.getAttribute("data-id");
-				const el = document.getElementById(id);
-				const goTo =
-					el.offsetTop - window.innerHeight / 2 + el.offsetHeight / 2;
-
-				el.classList.add("highlighted");
-				setTimeout(() => {
-					el.classList.remove("highlighted");
-				}, 4000);
-
+				const goTo = document.getElementById(id);
 				onSwitch({ detail: "right" }, goTo);
 			});
 		});
 	});
 </script>
 
-<svelte:window
-	on:keydown={onKeyDown}
-	bind:scrollY={$scrollY}
-	on:scroll={onScroll}
-/>
+<svelte:window on:keydown={onKeyDown} />
 <div class="outer">
 	<div
 		class="inner"
-		style:transform={`translate(${$side === "left" ? 0 : -80}vw, 0)`}
+		style:transform={`translate(${$side === "right" ? "-80vw" : 0}, 0)`}
 	>
-		<Process on:switch={onSwitch} />
-		<Product on:switch={onSwitch} />
+		<div class="switcher">
+			<button
+				class={$side}
+				on:click={() =>
+					onSwitch({ detail: $side === "left" ? "right" : "left" })}
+			>
+				{@html $side === "left"
+					? "Read Claude’s story &rarr;"
+					: "&larr; See the process"}
+			</button>
+		</div>
+
+		<div class="side" class:visible={$side === "left"}>
+			<Process on:switch={onSwitch} />
+			<Footer></Footer>
+		</div>
+		<div class="side" class:visible={$side === "right"}>
+			<Product on:switch={onSwitch} />
+		</div>
 	</div>
 </div>
 
-<Footer></Footer>
-
 <style>
 	.outer {
-		overflow-x: clip;
+		overflow-x: hidden;
 	}
-
 	.inner {
 		display: flex;
-		width: 180vw;
-		transition: transform calc(var(--1s) * 0.5);
+		height: 100vh;
+		transition: transform calc(var(--1s) * 0.5) ease-in-out;
 	}
-
-	:global(span.show) {
+	.side {
+		width: 90vw;
+		overflow-y: scroll;
+		flex-shrink: 0;
+	}
+	.switcher {
+		position: fixed;
+		top: 50%;
+		left: 90vw;
+		z-index: 1000;
+		transform: translate(-50%, -50%);
+	}
+	.switcher button {
+		font-size: var(--18px);
+		padding: 16px;
+		background: var(--color-claude-bg);
+		color: var(--color-bg);
+		pointer-events: auto;
 		white-space: nowrap;
+		transition: background calc(var(--1s) * 0.3);
 	}
-	:global(.highlighted) {
-		border-bottom: 3px solid var(--color-ai-orange-og);
-		color: white;
-		width: fit-content;
+	.switcher button.right {
+		background: var(--color-bg);
+		color: var(--color-fg);
 	}
 </style>
