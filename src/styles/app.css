@@ -24,7 +24,7 @@
 	--color-claude: var(--color-ai-orange);
 	--color-mark: var(--color-primary);
 	--color-claude-bg: #1d1f21;
-
+	--color-link: var(--color-ai-green-dark);
 	/* "1" second duration */
 	--1s: 1ms;
 }
