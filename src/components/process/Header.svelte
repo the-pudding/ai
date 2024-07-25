@@ -16,7 +16,7 @@
 		max-width: 10em;
 		margin: 0 auto;
 		padding: 1em 0;
-		transform: rotate(-3deg);
+		transform: translate(-15px, 0) rotate(-3deg);
 	}
 
 	.wordmark a {
@@ -30,6 +30,6 @@
 	}
 
 	.wordmark:hover {
-		transform: rotate(0deg);
+		transform: translate(-15px, 0) rotate(0deg);
 	}
 </style>

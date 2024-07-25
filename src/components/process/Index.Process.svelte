@@ -111,7 +111,7 @@
 			{:else if type === "video"}
 				<figure>
 					<!-- svelte-ignore a11y-media-has-caption -->
-					<video preload autoplay="true" loop muted>
+					<video preload playsinline autoplay="true" loop muted>
 						<source src="assets/{value.src}" type="video/mp4" />
 						Your browser does not support the video tag.
 					</video>
@@ -161,7 +161,8 @@
 	}
 
 	p,
-	li {
+	li,
+	.byline {
 		line-height: 1.6;
 	}
 
@@ -287,6 +288,7 @@
 	}
 	:global(code:not(pre code)) {
 		background: var(--color-ai-orange-og);
+		white-space: nowrap;
 		padding: 2px 6px;
 		font-size: var(--16px);
 	}
@@ -319,5 +321,35 @@
 	.footnote {
 		font-size: var(--16px);
 		margin-top: 4rem;
+	}
+
+	@media (max-width: 600px) {
+		article {
+			margin-top: 0;
+		}
+
+		h1 {
+			font-size: var(--48px);
+			line-height: 1.1;
+		}
+		h2 {
+			font-size: var(--24px);
+			margin: 32px 0 16px 0;
+		}
+		h3 {
+			font-size: var(--20px);
+		}
+		figcaption {
+			font-size: var(--12px);
+		}
+		td {
+			padding: 8px;
+			font-size: var(--16px);
+			line-height: 1.2;
+		}
+		td.grade {
+			font-size: var(--24px);
+			width: 24px;
+		}
 	}
 </style>

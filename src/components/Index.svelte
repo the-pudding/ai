@@ -4,6 +4,7 @@
 	import Process from "$components/process/Index.Process.svelte";
 	import { side } from "$stores/misc.js";
 	import { onMount } from "svelte";
+	import viewport from "$stores/viewport.js";
 
 	const onSwitch = async ({ detail }, goTo) => {
 		if (goTo) {
@@ -43,9 +44,23 @@
 				on:click={() =>
 					onSwitch({ detail: $side === "left" ? "right" : "left" })}
 			>
-				{@html $side === "left"
-					? "Read Claude’s story &rarr;"
-					: "&larr; See the process"}
+				{#if $viewport.width < 600}
+					{#if $side === "left"}
+						<img class="logo" src="assets/claude.png" alt="claude logo" />
+						<span class="arrow">&rarr;</span>
+					{:else}
+						<span class="arrow">&larr;</span>
+						<img
+							class="logo"
+							src="assets/pudding-black.png"
+							alt="pudding logo"
+						/>
+					{/if}
+				{:else}
+					{@html $side === "left"
+						? "Read Claude’s story &rarr;"
+						: "&larr; See the process"}
+				{/if}
 			</button>
 		</div>
 
@@ -97,5 +112,25 @@
 	.switcher button.right {
 		background: var(--color-bg);
 		color: var(--color-fg);
+	}
+
+	@media (max-width: 600px) {
+		.switcher {
+			left: auto;
+			right: 10vw;
+			transform: translate(50%, -50%);
+		}
+		.switcher button {
+			padding: 8px;
+			height: 4rem;
+			display: flex;
+			align-items: center;
+		}
+		.switcher img {
+			height: 100%;
+		}
+		.arrow {
+			margin: 0 6px;
+		}
 	}
 </style>
