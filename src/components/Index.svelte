@@ -7,10 +7,12 @@
 	import viewport from "$stores/viewport.js";
 
 	const onSwitch = async ({ detail }, goTo) => {
-		if (goTo) {
-			goTo.scrollIntoView({ behavior: "smooth", block: "center" });
-		}
 		$side = detail;
+		if (goTo) {
+			setTimeout(() => {
+				goTo.scrollIntoView({ behavior: "smooth", block: "center" });
+			}, 500);
+		}
 	};
 
 	const onKeyDown = (e) => {
