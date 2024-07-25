@@ -6,6 +6,7 @@
 	import { annotate } from "rough-notation";
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
+	import mq from "$stores/mq.js";
 
 	let annotation;
 
@@ -61,7 +62,7 @@
 				<Chat {...value} />
 			{:else if type === "figure"}
 				<figure>
-					{#if value.showId}
+					{#if value.showId && $mq.desktop}
 						<button class="show image" data-id={value.showId}>
 							<img src="assets/img/{value.src}" alt={value.alt} />
 							<p>Click to see the final product.</p>
