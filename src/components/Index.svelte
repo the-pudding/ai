@@ -129,7 +129,7 @@
 		}
 
 		.switcher {
-			top: 50%;
+			top: 10vh;
 			transform: translate(0, -50%);
 			left: auto;
 			right: calc(100% - 100vw);

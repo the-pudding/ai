@@ -67,6 +67,14 @@
 		padding: 16px;
 	}
 
+	details summary::-webkit-details-marker {
+		display: none;
+	}
+
+	details summary {
+		list-style: none;
+	}
+
 	details.prompt {
 		background: var(--color-ai-green);
 	}
