@@ -34,13 +34,9 @@
 
 <svelte:window on:keydown={onKeyDown} />
 <div class="outer">
-	<div
-		class="inner"
-		style:transform={`translate(${$side === "right" ? "-80vw" : 0}, 0)`}
-	>
+	<div class="inner {$side}">
 		<div class="switcher">
 			<button
-				class={$side}
 				on:click={() =>
 					onSwitch({ detail: $side === "left" ? "right" : "left" })}
 			>
@@ -82,7 +78,16 @@
 	.inner {
 		display: flex;
 		height: 100vh;
+		width: max-content;
 		transition: transform calc(var(--1s) * 0.5) ease-in-out;
+	}
+
+	.inner.left {
+		transform: translate(0, 0);
+	}
+
+	.inner.right {
+		transform: translate(-80vw, 0);
 	}
 
 	.side {
@@ -109,26 +114,44 @@
 		transition: background calc(var(--1s) * 0.3);
 	}
 
-	.switcher button.right {
+	.right .switcher button {
 		background: var(--color-bg);
 		color: var(--color-fg);
 	}
 
 	@media (max-width: 600px) {
-		.switcher {
-			left: auto;
-			right: 10vw;
-			transform: translate(50%, -50%);
+		.side {
+			width: 96vw;
 		}
+
+		.inner.right {
+			transform: translate(-92vw, 0);
+		}
+
+		.switcher {
+			top: 50%;
+			transform: translate(0, -50%);
+			left: auto;
+			right: calc(100% - 100vw);
+			opacity: 0.95;
+		}
+
 		.switcher button {
 			padding: 8px;
-			height: 4rem;
+			height: 3rem;
 			display: flex;
 			align-items: center;
 		}
+
+		.right .switcher {
+			left: 92vw;
+			right: auto;
+		}
+
 		.switcher img {
 			height: 100%;
 		}
+
 		.arrow {
 			margin: 0 6px;
 		}
