@@ -1,5 +1,5 @@
 <script>
-	import Footer from "$components/process/Footer.svelte";
+	import Footer from "$components/new-footer/Footer.svelte";
 	import Product from "$components/product/Index.Product.svelte";
 	import Process from "$components/process/Index.Process.svelte";
 	import { side } from "$stores/misc.js";
@@ -64,7 +64,7 @@
 
 		<div class="side" class:visible={$side === "left"}>
 			<Process on:switch={onSwitch} />
-			<Footer></Footer>
+			<Footer />
 		</div>
 		<div class="side" class:visible={$side === "right"}>
 			<Product on:switch={onSwitch} />
