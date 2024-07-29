@@ -14,9 +14,6 @@ importers:
       rough-notation:
         specifier: ^0.5.1
         version: 0.5.1
-      snarkdown:
-        specifier: ^2.0.0
-        version: 2.0.0
     devDependencies:
       '@rollup/plugin-dsv':
         specifier: ^3.0.4
@@ -1044,9 +1041,6 @@ packages:
 
   snake-case@3.0.4:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
-
-  snarkdown@2.0.0:
-    resolution: {integrity: sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A==}
 
   sorcery@0.11.0:
     resolution: {integrity: sha512-J69LQ22xrQB1cIFJhPfgtLuI6BpWRiWu1Y3vSsIwK/eAScqJxd/+CJlUuHQRdX2C9NGFamq+KqNywGgaThwfHw==}
@@ -2138,8 +2132,6 @@ snapshots:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.6.2
-
-  snarkdown@2.0.0: {}
 
   sorcery@0.11.0:
     dependencies:
