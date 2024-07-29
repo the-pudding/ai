@@ -42,7 +42,7 @@
 				on:click={() =>
 					onSwitch({ detail: $side === "left" ? "right" : "left" })}
 			>
-				{#if $viewport.width < 600}
+				<div class="switcher-mobile">
 					{#if $side === "left"}
 						<img class="logo" src="assets/claude.png" alt="claude logo" />
 						<span class="arrow">&rarr;</span>
@@ -54,11 +54,13 @@
 							alt="pudding logo"
 						/>
 					{/if}
-				{:else}
+				</div>
+
+				<div class="switcher-desktop">
 					{@html $side === "left"
 						? "Read Claude’s story &rarr;"
 						: "&larr; See the process"}
-				{/if}
+				</div>
 			</button>
 		</div>
 
@@ -121,7 +123,15 @@
 		color: var(--color-fg);
 	}
 
-	@media (max-width: 600px) {
+	.switcher-mobile {
+		display: none;
+	}
+
+	.switcher-desktop {
+		display: flex;
+	}
+
+	@media (max-width: 1000px) {
 		.side {
 			width: 96vw;
 		}
@@ -138,9 +148,19 @@
 			opacity: 0.95;
 		}
 
+		.switcher-mobile {
+			display: flex;
+			height: 100%;
+			align-items: center;
+		}
+
+		.switcher-desktop {
+			display: none;
+		}
+
 		.switcher button {
 			padding: 8px;
-			height: 3rem;
+			height: 4rem;
 			display: flex;
 			align-items: center;
 		}
@@ -156,6 +176,13 @@
 
 		.arrow {
 			margin: 0 6px;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.switcher button {
+			padding: 8px;
+			height: 3rem;
 		}
 	}
 </style>
