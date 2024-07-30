@@ -8,14 +8,7 @@
 	let stories = [];
 	let dataFiltered;
 
-	export let backgroundColor = "#F4F4F4";
-	export let width;
 	export let storyRecirculation = false;
-
-	function setVars() {
-		const root = document.documentElement;
-		root.style.setProperty("--footer-bg", backgroundColor);
-	}
 
 	const v = Date.now();
 	const url = `https://pudding.cool/assets/data/stories.json?v=${v}`;
@@ -40,13 +33,10 @@
 			url: "https://www.instagram.com/the.pudding"
 		},
 		{ name: "Patreon", url: "https://patreon.com/thepudding/" },
-		// { name: "privacy", url: "https://pudding.cool/privacy/" },
-		// { name: "newsletter", url: "https://thepuddingmail.substack.com" },
 		{ name: "RSS", url: "https://pudding.cool/feed/index.xml" }
 	];
 
 	onMount(async () => {
-		setVars();
 		localURL = window.location.href;
 
 		if (storyRecirculation) {
@@ -55,8 +45,6 @@
 
 			dataFiltered = data.filter((d) => !localURL.includes(d.url));
 			stories = dataFiltered.slice(0, 6);
-
-			console.log(dataFiltered);
 		}
 	});
 </script>
@@ -122,9 +110,6 @@
 							>
 						</div>
 					</div>
-					<!-- <div class="link">
-                        <a target="_self" href="https://patreon.com/thepudding">Support us as a Patron<span class="link-arrow">{@html arrow}</span></a>
-                    </div> -->
 				</div>
 				<div class="sticker-col">
 					<div class="sticker-outline sticker-outline-circle">
@@ -134,10 +119,6 @@
 							>
 						</div>
 					</div>
-					<!-- <div class="link">
-                        <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the newsletter<span class="link-arrow">{@html arrow}</span>
-                        </a>
-                    </div> -->
 				</div>
 			</div>
 			<div class="row">
@@ -207,6 +188,7 @@
 		width: 100%;
 		margin: 0 auto;
 	}
+
 	.row {
 		display: flex;
 		margin-bottom: 30px;
@@ -220,7 +202,7 @@
 		max-width: 600px;
 		margin: 0 auto;
 		width: calc(100% - 50px);
-		font-family: "Atlas Typewriter";
+		font-family: var(--font-mono);
 		margin-bottom: 50px;
 	}
 
@@ -230,7 +212,7 @@
 
 	.row-label {
 		width: 50%;
-		font-family: "Atlas Typewriter", monospace;
+		font-family: var(--font-mono);
 		text-transform: uppercase;
 		font-size: 12px;
 		padding-top: 5px;
@@ -341,16 +323,15 @@
 	}
 
 	footer {
-		background-color: var(--footer-bg);
+		background-color: var(--color-white);
 		padding-top: 50px;
 		color: var(--color-black);
-		font-family: "Atlas Grotesk", sans;
-		z-index: 100000;
+		font-family: var(--font-sans);
 		position: relative;
 	}
 
 	p {
-		font-family: "Atlas Grotesk", sans;
+		font-family: var(--font-sans);
 		font-weight: 400;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -389,7 +370,7 @@
 	}
 
 	.story-date {
-		font-family: "Atlas Typewriter";
+		font-family: var(--font-mono);
 		font-size: 12px;
 		-webkit-font-smoothing: antialiased;
 	}
@@ -430,7 +411,7 @@
 
 	.story-hed {
 		margin: 0;
-		font-family: var(--serif);
+		font-family: var(--font-sans);
 		font-size: 14px;
 		-webkit-font-smoothing: auto;
 		line-height: 1.3;
@@ -508,13 +489,10 @@
 
 	a.privacy {
 		margin-top: 120px;
-		color: rgba(0, 0, 0, 0.59);
-		font-size: 12px;
+		color: var(--color-link);
+		font-size: var(--12px);
 		text-transform: uppercase;
-		font-family: "Atlas Typewriter", monospace;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-rendering: optimizeLegibility;
+		font-family: var(--font-mono);
 	}
 
 	@media only screen and (max-width: 350px) {

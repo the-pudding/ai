@@ -167,6 +167,11 @@
 		line-height: 1.6;
 	}
 
+	.byline {
+		font-size: var(--18px);
+		margin: 32px 0;
+	}
+
 	ul,
 	ol {
 		padding-left: 32px;
@@ -174,10 +179,6 @@
 
 	li {
 		margin-bottom: 8px;
-	}
-
-	.byline {
-		margin: 32px 0;
 	}
 
 	table {
@@ -327,6 +328,10 @@
 	@media (max-width: 600px) {
 		article {
 			margin-top: 0;
+		}
+
+		.byline {
+			font-size: var(--14px);
 		}
 
 		h1 {
