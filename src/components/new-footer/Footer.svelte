@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	import logo from "$components/new-footer/main-logo.svg";
+	import logo from "$svg/wordmark-line.svg";
 	import arrow from "$components/new-footer/arrow.svg";
 	import inView from "$actions/inView.js";
 
@@ -424,7 +424,7 @@
 	}
 
 	.logo {
-		max-width: 240px;
+		max-width: 14em;
 		transform: rotate(-4deg);
 		margin: 0;
 	}
