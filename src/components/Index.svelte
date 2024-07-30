@@ -5,6 +5,8 @@
 	import { side } from "$stores/misc.js";
 	import { onMount } from "svelte";
 	import viewport from "$stores/viewport.js";
+	import ChevronRight from "lucide-svelte/icons/chevron-right";
+	import ChevronLeft from "lucide-svelte/icons/chevron-left";
 
 	const onSwitch = async ({ detail }, goTo) => {
 		$side = detail;
@@ -45,9 +47,9 @@
 				<div class="switcher-mobile">
 					{#if $side === "left"}
 						<img class="logo" src="assets/claude.png" alt="claude logo" />
-						<span class="arrow">&rarr;</span>
+						<span class="arrow"><ChevronRight /></span>
 					{:else}
-						<span class="arrow">&larr;</span>
+						<span class="arrow"><ChevronLeft /></span>
 						<img
 							class="logo"
 							src="assets/pudding-black.png"
@@ -57,9 +59,13 @@
 				</div>
 
 				<div class="switcher-desktop">
-					{@html $side === "left"
-						? "Read Claude’s story &rarr;"
-						: "&larr; See the process"}
+					{#if $side === "left"}
+						<span>Read Claude’s story</span>
+						<span class="arrow"><ChevronRight /></span>
+					{:else}
+						<span class="arrow"><ChevronLeft /></span>
+						<span>See the process</span>
+					{/if}
 				</div>
 			</button>
 		</div>
@@ -129,6 +135,11 @@
 
 	.switcher-desktop {
 		display: flex;
+		align-items: center;
+	}
+
+	:global(.arrow svg) {
+		display: block;
 	}
 
 	@media (max-width: 1000px) {
