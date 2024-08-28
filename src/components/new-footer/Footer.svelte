@@ -114,7 +114,7 @@
 				<div class="sticker-col">
 					<div class="sticker-outline sticker-outline-circle">
 						<div class="sticker">
-							<a target="_self" href="https://thepuddingmail.substack.com/"
+							<a target="_self" href="https://pudding.cool/subscribe"
 								><img src="assets/branding/subscribe.png" alt="" /></a
 							>
 						</div>
